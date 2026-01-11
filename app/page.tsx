@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from "react"
 import { LicensePlate } from "@/components/license-plate"
+import { Button } from "@/components/ui/button"
+import { Shuffle } from "lucide-react"
 
 // All 50 U.S. states
 const US_STATES = [
@@ -124,19 +126,13 @@ export default function Home() {
         state={state}
         backgroundColor={colors.backgroundColor}
         textColor={colors.textColor}
-        onRequestRandomize={handleRequestRandomize}
       />
 
-      {/* Demo controls showing current values */}
-      <div className="mt-8 p-4 bg-white rounded-lg shadow-md">
-        <p className="text-sm text-slate-600 text-center">
-          Current plate:{" "}
-          <span className="font-mono font-bold">
-            {letters}-{numbers}
-          </span>{" "}
-          ({state})
-        </p>
-      </div>
+      {/* Randomize Button */}
+      <Button onClick={handleRequestRandomize} variant="outline" className="mt-4 gap-2 bg-transparent">
+        <Shuffle className="w-4 h-4" />
+        Randomize Plate
+      </Button>
     </main>
   )
 }

@@ -2,14 +2,11 @@
 
 import { useEffect, useRef, useState } from "react"
 import { AnimatedCharacter } from "./animated-character"
-import { Button } from "@/components/ui/button"
-import { Shuffle } from "lucide-react"
 
 interface LicensePlateProps {
   letters: string
   numbers: string
   state: string
-  onRequestRandomize?: () => void
   backgroundColor?: string
   textColor?: string
 }
@@ -18,7 +15,6 @@ export function LicensePlate({
   letters,
   numbers,
   state,
-  onRequestRandomize,
   backgroundColor = "bg-gradient-to-b from-amber-50 to-amber-100",
   textColor = "text-blue-800",
 }: LicensePlateProps) {
@@ -89,14 +85,6 @@ export function LicensePlate({
         {/* Decorative bottom text */}
         <p className="text-center mt-2 text-xs text-slate-500 tracking-wider">LICENSE TO SPELL</p>
       </div>
-
-      {/* Randomize Button */}
-      {onRequestRandomize && (
-        <Button onClick={onRequestRandomize} variant="outline" className="gap-2 bg-transparent">
-          <Shuffle className="w-4 h-4" />
-          Randomize Plate
-        </Button>
-      )}
     </div>
   )
 }
