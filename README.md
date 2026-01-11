@@ -15,3 +15,10 @@ There are 123 possible words to create.
 - ✓ BECAME
 - ✗ BEMOAN (A must come before M)
 - ✗ EMBALM (B must come first)
+
+## Tech Stack
+
+- TypeScript
+- Next.js (app router, API routes, etc.)
+- Tailwind CSS
+- Shadcn UI
