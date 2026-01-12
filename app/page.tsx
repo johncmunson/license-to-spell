@@ -286,11 +286,11 @@ export default function Home() {
   const stats = calculateStats(validWords)
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 p-4 md:p-8">
-      <div className="w-full max-w-2xl flex flex-col items-center gap-6">
+    <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 px-3 py-4 sm:p-8">
+      <div className="w-full max-w-2xl flex flex-col items-center gap-4 sm:gap-6">
         {/* Header */}
-        <div className="flex items-center gap-2 mb-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+        <div className="flex items-center gap-2 mb-2 sm:mb-6">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-slate-800 text-center">
             LICENSE TO SPELL
           </h1>
           <button
@@ -298,7 +298,7 @@ export default function Home() {
             className="text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
             aria-label="Game rules and scoring"
           >
-            <Info className="w-6 h-6" />
+            <Info className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
@@ -318,9 +318,10 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="font-semibold text-slate-800 mb-1">Rules</h3>
-                <ul className="list-disc list-inside space-y-1">
+                <ul className="list-disc list-insid ml-6 space-y-1">
                   <li>Words must <strong>start</strong> with the first letter of the plate</li>
                   <li>All three plate letters must appear in the word, <strong>in order</strong></li>
+                  <li>The license plate number indicates the <strong>number of possible words</strong> that can be spelled given the plate letters.</li>
                   <li>You have <strong>5 minutes</strong> per round</li>
                 </ul>
               </div>
@@ -360,7 +361,7 @@ export default function Home() {
             textColor={colors.textColor}
           />
         ) : (
-          <div className="w-[512px] aspect-[2/1] bg-slate-200 rounded-xl animate-pulse" />
+          <div className="w-full max-w-[512px] aspect-[2/1] bg-slate-200 rounded-lg sm:rounded-xl animate-pulse" />
         )}
 
         {/* Word Input */}
@@ -400,19 +401,19 @@ export default function Home() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-4 gap-2 w-full max-w-lg text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full max-w-lg text-center">
           {/* Game Control Box */}
           {gameState === 'idle' && (
             <button
               onClick={generatePlate}
               disabled={isLoading}
-              className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+              className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <div className="text-sm text-slate-500 mb-1">
+              <div className="text-xs sm:text-sm text-slate-500 mb-1">
                 {isLoading ? 'Loading...' : 'Start Game'}
               </div>
               <div className="flex justify-center">
-                <Play className="w-8 h-8 text-emerald-500 fill-emerald-500" />
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 fill-emerald-500" />
               </div>
             </button>
           )}
@@ -421,17 +422,17 @@ export default function Home() {
             <button
               onClick={stopRound}
               data-testid="timer"
-              className={`bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
+              className={`bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
                 timeRemaining <= 60 ? 'border-red-200' : ''
               }`}
             >
-              <div className={`text-sm font-mono font-bold mb-1 ${
+              <div className={`text-xs sm:text-sm font-mono font-bold mb-1 ${
                 timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500 group-hover:text-slate-600'
               }`}>
                 {formatTime(timeRemaining)}
               </div>
               <div className="flex justify-center">
-                <CircleStop className="w-8 h-8 text-red-500" />
+                <CircleStop className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
               </div>
             </button>
           )}
@@ -443,19 +444,19 @@ export default function Home() {
               </div>
               <button
                 onClick={startNewRound}
-                className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+                className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
               >
-                <div className="text-sm text-slate-500 mb-1">New Round</div>
+                <div className="text-xs sm:text-sm text-slate-500 mb-1">New Round</div>
                 <div className="flex justify-center">
-                  <Play className="w-8 h-8 text-emerald-500 fill-emerald-500" />
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 fill-emerald-500" />
                 </div>
               </button>
             </>
           )}
           
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
-            <div className="text-sm text-slate-500 mb-1">Score</div>
-            <div data-testid="current-score" className="text-2xl font-bold text-blue-600">
+          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
+            <div className="text-xs sm:text-sm text-slate-500 mb-1">Score</div>
+            <div data-testid="current-score" className="text-xl sm:text-2xl font-bold text-blue-600">
               {currentScore.toLocaleString()}
             </div>
             {/* Hidden element for test compatibility */}
@@ -465,25 +466,25 @@ export default function Home() {
               </div>
             )}
           </div>
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
-            <div className="text-sm text-slate-500 mb-1">Possible</div>
-            <div data-testid="total-possible-points" className="text-2xl font-bold text-emerald-600">
+          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
+            <div className="text-xs sm:text-sm text-slate-500 mb-1">Possible</div>
+            <div data-testid="total-possible-points" className="text-xl sm:text-2xl font-bold text-emerald-600">
               {stats.totalPoints.toLocaleString()}
             </div>
           </div>
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
-            <div className="text-sm text-slate-500 mb-1">Avg Length</div>
-            <div data-testid="average-word-length" className="text-2xl font-bold text-violet-600">
+          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
+            <div className="text-xs sm:text-sm text-slate-500 mb-1">Avg Length</div>
+            <div data-testid="average-word-length" className="text-xl sm:text-2xl font-bold text-violet-600">
               {stats.averageLength.toFixed(1)}
             </div>
           </div>
         </div>
 
         {/* Words Section */}
-        <div className="w-full max-w-lg">
+        <div className="w-full max-w-lg px-1">
           {/* Header with toggle */}
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-semibold text-slate-700">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-700">
               {showAllWords ? `All Words (${validWords.length})` : `Your Words (${correctGuesses.length})`}
             </h2>
             {gameState === 'ended' && (
@@ -491,16 +492,16 @@ export default function Home() {
                 onClick={() => setShowAllWords(!showAllWords)}
                 variant="ghost"
                 size="sm"
-                className="gap-1 text-slate-500 hover:text-slate-700"
+                className="gap-1 text-slate-500 hover:text-slate-700 text-xs sm:text-sm"
               >
                 {showAllWords ? (
                   <>
-                    <EyeOff className="w-4 h-4" />
+                    <EyeOff className="w-3 h-3 sm:w-4 sm:h-4" />
                     Your Words
                   </>
                 ) : (
                   <>
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                     All Words
                   </>
                 )}
@@ -515,18 +516,18 @@ export default function Home() {
           >
             {/* Your Words view */}
             <div 
-              className={`p-4 min-h-[100px] max-h-[300px] overflow-y-auto transition-all duration-300 ${
+              className={`p-3 sm:p-4 min-h-[80px] sm:min-h-[100px] max-h-[200px] sm:max-h-[300px] overflow-y-auto transition-all duration-300 ${
                 showAllWords ? 'hidden' : 'block'
               } ${correctGuesses.length === 0 ? 'flex items-center justify-center' : ''}`}
             >
               {correctGuesses.length === 0 ? (
-                <p className="text-slate-400 text-center italic">No correct guesses yet!</p>
+                <p className="text-slate-400 text-center italic text-sm sm:text-base">No correct guesses yet!</p>
               ) : (
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {correctGuesses.map((word, index) => (
                     <span 
                       key={index}
-                      className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium"
+                      className="px-2 sm:px-3 py-0.5 sm:py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs sm:text-sm font-medium"
                     >
                       {word.toUpperCase()} (+{word.length})
                     </span>
@@ -538,17 +539,17 @@ export default function Home() {
             {/* All Words view */}
             <div 
               data-testid="valid-words-list"
-              className={`p-4 max-h-[300px] overflow-y-auto transition-all duration-300 ${
+              className={`p-3 sm:p-4 max-h-[200px] sm:max-h-[300px] overflow-y-auto transition-all duration-300 ${
                 showAllWords ? 'block animate-in fade-in slide-in-from-top-2' : 'hidden'
               }`}
             >
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {validWords.sort().map((word, index) => {
                   const wasGuessed = correctGuesses.some(g => g.toLowerCase() === word.toLowerCase())
                   return (
                     <span 
                       key={index}
-                      className={`px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 ${
+                      className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                         wasGuessed 
                           ? 'bg-emerald-100 text-emerald-700' 
                           : 'bg-slate-100 text-slate-600'

@@ -44,20 +44,20 @@ export function LicensePlate({
   const numberChars = numbers.padStart(3, "0").slice(0, 3).split("")
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 w-full px-2 sm:px-0">
       {/* License Plate - 2:1 aspect ratio like real US plates */}
-      <div className={`relative w-[512px] aspect-[2/1] ${backgroundColor} border-[5px] border-slate-700 rounded-xl shadow-xl flex flex-col items-center justify-center`}>
+      <div className={`relative w-full max-w-[512px] aspect-[2/1] ${backgroundColor} border-[3px] sm:border-[5px] border-slate-700 rounded-lg sm:rounded-xl shadow-xl flex flex-col items-center justify-center px-2 sm:px-0`}>
         {/* Bolt holes */}
-        <div className="absolute top-2.5 left-4 w-4 h-4 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute top-2.5 right-4 w-4 h-4 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute bottom-2.5 left-4 w-4 h-4 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute bottom-2.5 right-4 w-4 h-4 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute top-1.5 sm:top-2.5 left-2 sm:left-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute top-1.5 sm:top-2.5 right-2 sm:right-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute bottom-1.5 sm:bottom-2.5 left-2 sm:left-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute bottom-1.5 sm:bottom-2.5 right-2 sm:right-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
 
         {/* State name with fade animation */}
-        <div className="text-center h-9 overflow-hidden mb-4">
+        <div className="text-center h-6 sm:h-9 overflow-hidden mb-2 sm:mb-4">
           <p
             className={`
-              text-2xl font-bold tracking-widest ${textColor} uppercase
+              text-base sm:text-2xl font-bold tracking-widest ${textColor} uppercase
               transition-all duration-200 ease-in-out
               ${isStateAnimating ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}
             `}
@@ -67,21 +67,21 @@ export function LicensePlate({
         </div>
 
         {/* Plate characters */}
-        <div className="flex items-center justify-center gap-1.5">
+        <div className="flex items-center justify-center gap-0.5 sm:gap-1.5">
           {/* Letters */}
-          <div data-testid="plate-letters" className="flex gap-1">
+          <div data-testid="plate-letters" className="flex gap-0.5 sm:gap-1">
             {letterChars.map((char, index) => (
               <AnimatedCharacter key={`letter-${index}`} character={char} delay={index * 50} />
             ))}
           </div>
 
           {/* Separator */}
-          <div className="w-6 h-[82px] flex items-center justify-center">
-            <span className="text-6xl font-bold text-slate-600">-</span>
+          <div className="w-4 sm:w-6 h-[50px] sm:h-[82px] flex items-center justify-center">
+            <span className="text-4xl sm:text-6xl font-bold text-slate-600">-</span>
           </div>
 
           {/* Numbers */}
-          <div data-testid="plate-number" className="flex gap-1">
+          <div data-testid="plate-number" className="flex gap-0.5 sm:gap-1">
             {numberChars.map((char, index) => (
               <AnimatedCharacter key={`number-${index}`} character={char} delay={(index + 3) * 50} />
             ))}
@@ -89,7 +89,7 @@ export function LicensePlate({
         </div>
 
         {/* State motto */}
-        <p className="text-center text-lg italic text-slate-500 tracking-wide mt-6">"{motto}"</p>
+        <p className="text-center text-xs sm:text-lg italic text-slate-500 tracking-wide mt-3 sm:mt-6 px-2">"{motto}"</p>
       </div>
     </div>
   )
