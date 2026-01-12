@@ -286,9 +286,9 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="w-full max-w-2xl flex flex-col items-center gap-4 sm:gap-6">
+      <div className="w-full max-w-2xl flex flex-col items-center gap-6 sm:gap-8">
         {/* Header */}
-        <div className="flex items-center gap-2" style={{ marginBottom: 'clamp(0.5rem, 3vw, 1.5rem)' }}>
+        <div className="flex items-center gap-2">
           <h1 
             className="font-bold text-slate-800 text-center"
             style={{ fontSize: 'clamp(1.25rem, 5vw, 2.25rem)' }}
@@ -374,7 +374,7 @@ export default function Home() {
         />
 
         {/* Message Area - positioned absolutely to prevent CLS */}
-        <div className="h-6 relative w-full max-w-lg">
+        <div className="h-6 relative w-full max-w-lg -my-2">
           {errorMessage && (
             <div 
               key={errorKey}
@@ -396,7 +396,7 @@ export default function Home() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full max-w-lg text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-lg text-center">
           {/* Game Control Box */}
           {gameState === 'idle' && (
             <button
@@ -483,9 +483,9 @@ export default function Home() {
         </div>
 
         {/* Words Section */}
-        <div className="w-full max-w-lg px-1 mt-4">
+        <div className="w-full max-w-lg">
           {/* Header with toggle */}
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-3">
             <h2 
               className="font-semibold text-slate-700"
               style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}
