@@ -54,13 +54,17 @@ export function LicensePlate({
         <div className="absolute bottom-1.5 sm:bottom-2.5 right-2 sm:right-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
 
         {/* State name with fade animation */}
-        <div className="text-center h-6 sm:h-9 overflow-hidden mb-2 sm:mb-4">
+        <div 
+          className="text-center overflow-hidden"
+          style={{ height: 'clamp(1.5rem, 5vw, 2.25rem)', marginBottom: 'clamp(0.5rem, 2vw, 1rem)' }}
+        >
           <p
             className={`
-              text-base sm:text-2xl font-bold tracking-widest ${textColor} uppercase
+              font-bold tracking-widest ${textColor} uppercase
               transition-all duration-200 ease-in-out
               ${isStateAnimating ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}
             `}
+            style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)' }}
           >
             {displayState}
           </p>
@@ -76,8 +80,14 @@ export function LicensePlate({
           </div>
 
           {/* Separator */}
-          <div className="w-4 sm:w-6 h-[50px] sm:h-[82px] flex items-center justify-center">
-            <span className="text-4xl sm:text-6xl font-bold text-slate-600">-</span>
+          <div 
+            className="flex items-center justify-center"
+            style={{ width: 'clamp(1rem, 3vw, 1.5rem)', height: 'clamp(50px, 16vw, 82px)' }}
+          >
+            <span 
+              className="font-bold text-slate-600"
+              style={{ fontSize: 'clamp(2.25rem, 8vw, 3.75rem)' }}
+            >-</span>
           </div>
 
           {/* Numbers */}
@@ -89,7 +99,10 @@ export function LicensePlate({
         </div>
 
         {/* State motto */}
-        <p className="text-center text-xs sm:text-lg italic text-slate-500 tracking-wide mt-3 sm:mt-6 px-2">"{motto}"</p>
+        <p 
+          className="text-center italic text-slate-500 tracking-wide px-2"
+          style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.125rem)', marginTop: 'clamp(0.75rem, 3vw, 1.5rem)' }}
+        >"{motto}"</p>
       </div>
     </div>
   )

@@ -40,12 +40,18 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
   }, [character, delay])
 
   return (
-    <div className="relative w-[38px] h-[50px] sm:w-[62px] sm:h-[82px] perspective-[400px]">
+    <div 
+      className="relative perspective-[400px]"
+      style={{
+        width: 'clamp(38px, 12vw, 62px)',
+        height: 'clamp(50px, 16vw, 82px)',
+      }}
+    >
       <div
         className={`
           w-full h-full flex items-center justify-center
-          bg-white border sm:border-2 border-slate-300 rounded-sm sm:rounded-md
-          text-[38px] sm:text-[64px] font-mono font-bold text-slate-800
+          bg-white border-[1.5px] sm:border-2 border-slate-300 rounded-sm sm:rounded-md
+          font-mono font-bold text-slate-800
           shadow-sm
           transition-transform duration-300 ease-in-out
           ${isFlipping ? "rotate-x-90" : "rotate-x-0"}
@@ -53,6 +59,7 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
         style={{
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
+          fontSize: 'clamp(38px, 12vw, 64px)',
         }}
       >
         {displayChar}

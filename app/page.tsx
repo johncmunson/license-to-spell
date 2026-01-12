@@ -289,8 +289,11 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 px-3 py-4 sm:p-8">
       <div className="w-full max-w-2xl flex flex-col items-center gap-4 sm:gap-6">
         {/* Header */}
-        <div className="flex items-center gap-2 mb-2 sm:mb-6">
-          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-slate-800 text-center">
+        <div className="flex items-center gap-2" style={{ marginBottom: 'clamp(0.5rem, 3vw, 1.5rem)' }}>
+          <h1 
+            className="font-bold text-slate-800 text-center"
+            style={{ fontSize: 'clamp(1.25rem, 5vw, 2.25rem)' }}
+          >
             LICENSE TO SPELL
           </h1>
           <button
@@ -298,7 +301,7 @@ export default function Home() {
             className="text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
             aria-label="Game rules and scoring"
           >
-            <Info className="w-5 h-5 sm:w-6 sm:h-6" />
+            <Info style={{ width: 'clamp(1.25rem, 4vw, 1.5rem)', height: 'clamp(1.25rem, 4vw, 1.5rem)' }} />
           </button>
         </div>
 
@@ -407,13 +410,14 @@ export default function Home() {
             <button
               onClick={generatePlate}
               disabled={isLoading}
-              className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+              className="bg-white rounded-lg shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+              style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}
             >
-              <div className="text-xs sm:text-sm text-slate-500 mb-1">
+              <div className="text-slate-500 mb-1" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>
                 {isLoading ? 'Loading...' : 'Start Game'}
               </div>
               <div className="flex justify-center">
-                <Play className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 fill-emerald-500" />
+                <Play className="text-emerald-500 fill-emerald-500" style={{ width: 'clamp(1.5rem, 5vw, 2rem)', height: 'clamp(1.5rem, 5vw, 2rem)' }} />
               </div>
             </button>
           )}
@@ -422,17 +426,21 @@ export default function Home() {
             <button
               onClick={stopRound}
               data-testid="timer"
-              className={`bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
+              className={`bg-white rounded-lg shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
                 timeRemaining <= 60 ? 'border-red-200' : ''
               }`}
+              style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}
             >
-              <div className={`text-xs sm:text-sm font-mono font-bold mb-1 ${
-                timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500 group-hover:text-slate-600'
-              }`}>
+              <div 
+                className={`font-mono font-bold mb-1 ${
+                  timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500 group-hover:text-slate-600'
+                }`}
+                style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
+              >
                 {formatTime(timeRemaining)}
               </div>
               <div className="flex justify-center">
-                <CircleStop className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
+                <CircleStop className="text-red-500" style={{ width: 'clamp(1.5rem, 5vw, 2rem)', height: 'clamp(1.5rem, 5vw, 2rem)' }} />
               </div>
             </button>
           )}
@@ -444,19 +452,20 @@ export default function Home() {
               </div>
               <button
                 onClick={startNewRound}
-                className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+                className="bg-white rounded-lg shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+                style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}
               >
-                <div className="text-xs sm:text-sm text-slate-500 mb-1">New Round</div>
+                <div className="text-slate-500 mb-1" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>New Round</div>
                 <div className="flex justify-center">
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 fill-emerald-500" />
+                  <Play className="text-emerald-500 fill-emerald-500" style={{ width: 'clamp(1.5rem, 5vw, 2rem)', height: 'clamp(1.5rem, 5vw, 2rem)' }} />
                 </div>
               </button>
             </>
           )}
           
-          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
-            <div className="text-xs sm:text-sm text-slate-500 mb-1">Score</div>
-            <div data-testid="current-score" className="text-xl sm:text-2xl font-bold text-blue-600">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-200" style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}>
+            <div className="text-slate-500 mb-1" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>Score</div>
+            <div data-testid="current-score" className="font-bold text-blue-600" style={{ fontSize: 'clamp(1.25rem, 4vw, 1.5rem)' }}>
               {currentScore.toLocaleString()}
             </div>
             {/* Hidden element for test compatibility */}
@@ -466,25 +475,28 @@ export default function Home() {
               </div>
             )}
           </div>
-          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
-            <div className="text-xs sm:text-sm text-slate-500 mb-1">Possible</div>
-            <div data-testid="total-possible-points" className="text-xl sm:text-2xl font-bold text-emerald-600">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-200" style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}>
+            <div className="text-slate-500 mb-1" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>Possible</div>
+            <div data-testid="total-possible-points" className="font-bold text-emerald-600" style={{ fontSize: 'clamp(1.25rem, 4vw, 1.5rem)' }}>
               {stats.totalPoints.toLocaleString()}
             </div>
           </div>
-          <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-slate-200">
-            <div className="text-xs sm:text-sm text-slate-500 mb-1">Avg Length</div>
-            <div data-testid="average-word-length" className="text-xl sm:text-2xl font-bold text-violet-600">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-200" style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}>
+            <div className="text-slate-500 mb-1" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}>Avg Length</div>
+            <div data-testid="average-word-length" className="font-bold text-violet-600" style={{ fontSize: 'clamp(1.25rem, 4vw, 1.5rem)' }}>
               {stats.averageLength.toFixed(1)}
             </div>
           </div>
         </div>
 
         {/* Words Section */}
-        <div className="w-full max-w-lg px-1">
+        <div className="w-full max-w-lg px-1 mt-4">
           {/* Header with toggle */}
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-base sm:text-lg font-semibold text-slate-700">
+            <h2 
+              className="font-semibold text-slate-700"
+              style={{ fontSize: 'clamp(1rem, 3vw, 1.125rem)' }}
+            >
               {showAllWords ? `All Words (${validWords.length})` : `Your Words (${correctGuesses.length})`}
             </h2>
             {gameState === 'ended' && (
@@ -492,16 +504,17 @@ export default function Home() {
                 onClick={() => setShowAllWords(!showAllWords)}
                 variant="ghost"
                 size="sm"
-                className="gap-1 text-slate-500 hover:text-slate-700 text-xs sm:text-sm"
+                className="gap-1 text-slate-500 hover:text-slate-700"
+                style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
               >
                 {showAllWords ? (
                   <>
-                    <EyeOff className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <EyeOff style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
                     Your Words
                   </>
                 ) : (
                   <>
-                    <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <Eye style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
                     All Words
                   </>
                 )}
@@ -516,18 +529,30 @@ export default function Home() {
           >
             {/* Your Words view */}
             <div 
-              className={`p-3 sm:p-4 min-h-[80px] sm:min-h-[100px] max-h-[200px] sm:max-h-[300px] overflow-y-auto transition-all duration-300 ${
+              className={`overflow-y-auto transition-all duration-300 ${
                 showAllWords ? 'hidden' : 'block'
               } ${correctGuesses.length === 0 ? 'flex items-center justify-center' : ''}`}
+              style={{ 
+                padding: 'clamp(0.75rem, 2vw, 1rem)',
+                minHeight: 'clamp(80px, 15vw, 100px)',
+                maxHeight: 'clamp(200px, 40vw, 300px)'
+              }}
             >
               {correctGuesses.length === 0 ? (
-                <p className="text-slate-400 text-center italic text-sm sm:text-base">No correct guesses yet!</p>
+                <p 
+                  className="text-slate-400 text-center italic"
+                  style={{ fontSize: 'clamp(0.875rem, 2.5vw, 1rem)' }}
+                >No correct guesses yet!</p>
               ) : (
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                <div className="flex flex-wrap" style={{ gap: 'clamp(0.375rem, 1vw, 0.5rem)' }}>
                   {correctGuesses.map((word, index) => (
                     <span 
                       key={index}
-                      className="px-2 sm:px-3 py-0.5 sm:py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs sm:text-sm font-medium"
+                      className="bg-emerald-100 text-emerald-700 rounded-full font-medium"
+                      style={{ 
+                        padding: 'clamp(0.125rem, 0.5vw, 0.25rem) clamp(0.5rem, 1.5vw, 0.75rem)',
+                        fontSize: 'clamp(0.75rem, 2vw, 0.875rem)'
+                      }}
                     >
                       {word.toUpperCase()} (+{word.length})
                     </span>
@@ -539,22 +564,30 @@ export default function Home() {
             {/* All Words view */}
             <div 
               data-testid="valid-words-list"
-              className={`p-3 sm:p-4 max-h-[200px] sm:max-h-[300px] overflow-y-auto transition-all duration-300 ${
+              className={`overflow-y-auto transition-all duration-300 ${
                 showAllWords ? 'block animate-in fade-in slide-in-from-top-2' : 'hidden'
               }`}
+              style={{ 
+                padding: 'clamp(0.75rem, 2vw, 1rem)',
+                maxHeight: 'clamp(200px, 40vw, 300px)'
+              }}
             >
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              <div className="flex flex-wrap" style={{ gap: 'clamp(0.375rem, 1vw, 0.5rem)' }}>
                 {validWords.sort().map((word, index) => {
                   const wasGuessed = correctGuesses.some(g => g.toLowerCase() === word.toLowerCase())
                   return (
                     <span 
                       key={index}
-                      className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
+                      className={`rounded-full font-medium transition-all duration-200 ${
                         wasGuessed 
                           ? 'bg-emerald-100 text-emerald-700' 
                           : 'bg-slate-100 text-slate-600'
                       }`}
-                      style={{ animationDelay: `${index * 10}ms` }}
+                      style={{ 
+                        padding: 'clamp(0.125rem, 0.5vw, 0.25rem) clamp(0.5rem, 1.5vw, 0.75rem)',
+                        fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',
+                        animationDelay: `${index * 10}ms` 
+                      }}
                     >
                       {word.toUpperCase()}
                     </span>
