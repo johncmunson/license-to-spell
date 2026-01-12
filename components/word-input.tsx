@@ -104,10 +104,6 @@ export function WordInput({
       >
         Submit
       </Button>
-
-      <p className="text-xs text-slate-400">
-        {value.length}/{maxLength} characters
-      </p>
     </div>
   )
 }
