@@ -286,7 +286,7 @@ export default function Home() {
   const stats = calculateStats(validWords)
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 px-3 py-4 sm:p-8">
+    <main className="flex flex-col items-center">
       <div className="w-full max-w-2xl flex flex-col items-center gap-4 sm:gap-6">
         {/* Header */}
         <div className="flex items-center gap-2" style={{ marginBottom: 'clamp(0.5rem, 3vw, 1.5rem)' }}>
@@ -504,7 +504,7 @@ export default function Home() {
                 onClick={() => setShowAllWords(!showAllWords)}
                 variant="ghost"
                 size="sm"
-                className="gap-1 text-slate-500 hover:text-slate-700"
+                className="gap-1 cursor-pointer text-slate-500 hover:text-slate-700"
                 style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
               >
                 {showAllWords ? (
