@@ -67,9 +67,11 @@ export function LicensePlate({
         {/* Plate characters */}
         <div className="flex items-center gap-1">
           {/* Letters */}
-          {letterChars.map((char, index) => (
-            <AnimatedCharacter key={`letter-${index}`} character={char} delay={index * 50} />
-          ))}
+          <div data-testid="plate-letters" className="flex gap-1">
+            {letterChars.map((char, index) => (
+              <AnimatedCharacter key={`letter-${index}`} character={char} delay={index * 50} />
+            ))}
+          </div>
 
           {/* Separator */}
           <div className="w-4 h-14 flex items-center justify-center">
@@ -77,9 +79,11 @@ export function LicensePlate({
           </div>
 
           {/* Numbers */}
-          {numberChars.map((char, index) => (
-            <AnimatedCharacter key={`number-${index}`} character={char} delay={(index + 3) * 50} />
-          ))}
+          <div data-testid="plate-number" className="flex gap-1">
+            {numberChars.map((char, index) => (
+              <AnimatedCharacter key={`number-${index}`} character={char} delay={(index + 3) * 50} />
+            ))}
+          </div>
         </div>
 
         {/* Decorative bottom text */}

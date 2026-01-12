@@ -13,8 +13,30 @@
  * @returns true if the word is valid for the plate
  */
 export function isValidWord(plate: string, word: string): boolean {
-  // TODO: Implement
-  throw new Error('Not implemented')
+  // Normalize to uppercase for case-insensitive comparison
+  const upperPlate = plate.toUpperCase()
+  const upperWord = word.toUpperCase()
+  
+  // Word must be at least as long as the plate
+  if (upperWord.length < upperPlate.length) {
+    return false
+  }
+  
+  // Word must start with the first letter of the plate
+  if (upperWord[0] !== upperPlate[0]) {
+    return false
+  }
+  
+  // All plate letters must appear in the word, in order
+  let plateIndex = 0
+  for (let i = 0; i < upperWord.length && plateIndex < upperPlate.length; i++) {
+    if (upperWord[i] === upperPlate[plateIndex]) {
+      plateIndex++
+    }
+  }
+  
+  // All plate letters were found in order
+  return plateIndex === upperPlate.length
 }
 
 /**
@@ -24,8 +46,7 @@ export function isValidWord(plate: string, word: string): boolean {
  * @returns Array of valid words
  */
 export function getValidWords(plate: string, dictionary: string[]): string[] {
-  // TODO: Implement
-  throw new Error('Not implemented')
+  return dictionary.filter(word => isValidWord(plate, word))
 }
 
 /**
@@ -35,8 +56,7 @@ export function getValidWords(plate: string, dictionary: string[]): string[] {
  * @returns Total score
  */
 export function calculateScore(words: string[]): number {
-  // TODO: Implement
-  throw new Error('Not implemented')
+  return words.reduce((total, word) => total + word.length, 0)
 }
 
 /**
@@ -45,8 +65,21 @@ export function calculateScore(words: string[]): number {
  * @returns Object containing totalPoints and averageLength
  */
 export function calculateStats(words: string[]): { totalPoints: number; averageLength: number } {
-  // TODO: Implement
-  throw new Error('Not implemented')
+  if (words.length === 0) {
+    return { totalPoints: 0, averageLength: 0 }
+  }
+  
+  const totalPoints = calculateScore(words)
+  const averageLength = totalPoints / words.length
+  
+  return { totalPoints, averageLength }
+}
+
+/**
+ * Generates a random uppercase letter
+ */
+function randomLetter(): string {
+  return String.fromCharCode(65 + Math.floor(Math.random() * 26))
 }
 
 /**
@@ -59,7 +92,18 @@ export function generateValidPlate(
   dictionary: string[],
   minWords: number = 100
 ): { letters: string; wordCount: number; validWords: string[] } {
-  // TODO: Implement
-  throw new Error('Not implemented')
+  let letters: string
+  let validWords: string[]
+  
+  do {
+    letters = randomLetter() + randomLetter() + randomLetter()
+    validWords = getValidWords(letters, dictionary)
+  } while (validWords.length < minWords)
+  
+  return {
+    letters,
+    wordCount: validWords.length,
+    validWords
+  }
 }
 

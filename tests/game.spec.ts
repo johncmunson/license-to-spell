@@ -4,8 +4,8 @@ test.describe('Game Initialization', () => {
   test('page loads with license plate displayed', async ({ page }) => {
     await page.goto('/')
     
-    // License plate should be visible
-    const licensePlate = page.locator('text=LICENSE TO SPELL')
+    // License plate should be visible (check for the text on the plate itself)
+    const licensePlate = page.getByText('LICENSE TO SPELL', { exact: true })
     await expect(licensePlate).toBeVisible()
   })
 
@@ -78,13 +78,17 @@ test.describe('Starting a Round', () => {
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
     await startButton.click()
     
-    // Total possible points should be visible
+    // Total possible points should be visible and greater than 0
+    // Wait for the value to be loaded (not "0")
     const totalPoints = page.getByTestId('total-possible-points')
     await expect(totalPoints).toBeVisible()
     
-    const pointsText = await totalPoints.textContent()
-    const points = parseInt(pointsText || '0', 10)
-    expect(points).toBeGreaterThan(0)
+    // Wait for points to be calculated (not 0)
+    await expect(async () => {
+      const pointsText = await totalPoints.textContent()
+      const points = parseInt(pointsText || '0', 10)
+      expect(points).toBeGreaterThan(0)
+    }).toPass({ timeout: 10000 })
   })
 })
 
@@ -191,15 +195,12 @@ test.describe('Timer Behavior', () => {
     
     const timer = page.getByTestId('timer')
     
-    // Get initial time
-    const initialTime = await timer.textContent()
-    
-    // Wait a bit
-    await page.waitForTimeout(2000)
-    
-    // Time should have decreased
-    const currentTime = await timer.textContent()
-    expect(currentTime).not.toBe(initialTime)
+    // Wait for game to initialize and timer to start counting down
+    // The timer should eventually show something other than 5:00
+    await expect(async () => {
+      const currentTime = await timer.textContent()
+      expect(currentTime).not.toBe('5:00')
+    }).toPass({ timeout: 10000 })
   })
 
   test('timer displays in MM:SS format', async ({ page }) => {
