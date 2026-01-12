@@ -12,6 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
+import { cn } from "@/lib/utils"
 
 const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-amber-50", textColor: "text-amber-700" },
@@ -305,7 +306,7 @@ export default function Home() {
 
         {/* Rules Drawer */}
         <Drawer open={showRulesDialog} onOpenChange={setShowRulesDialog}>
-          <DrawerContent>
+          <DrawerContent className="font-mono min-w-[310px]">
             <DrawerHeader>
               <DrawerTitle className="text-xl">How to Play</DrawerTitle>
             </DrawerHeader>
@@ -336,8 +337,8 @@ export default function Home() {
               <div>
                 <h3 className="font-semibold text-slate-800 mb-1">Example</h3>
                 <p>
-                  For plate <span className="font-mono font-bold">BAM</span>, valid words include: 
-                  <span className="font-mono"> BECAME, BEAM, BASEMENT, etc.</span>
+                  For plate <span className="font-semibold">BAM</span>, valid words include: 
+                  <span> BECAME, BEAM, BASEMENT, etc.</span>
                 </p>
               </div>
             </div>
@@ -417,15 +418,16 @@ export default function Home() {
             <button
               onClick={stopRound}
               data-testid="timer"
-              className={`bg-white rounded-lg shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
+              className={cn(`bg-white rounded-lg shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group`,
                 timeRemaining <= 60 ? 'border-red-200' : ''
-              }`}
+              )}
               style={{ padding: 'clamp(0.75rem, 2vw, 1rem)' }}
             >
-              <div 
-                className={`font-mono font-bold mb-1 ${
+              <div
+                // use cn helper
+                className={cn(`font-bold mb-1`, 
                   timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500 group-hover:text-slate-600'
-                }`}
+                )}
                 style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
               >
                 {formatTime(timeRemaining)}

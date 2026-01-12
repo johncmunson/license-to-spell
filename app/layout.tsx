@@ -1,26 +1,55 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local"
 import "./globals.css";
 import { GithubIcon, XIcon } from "@/components/icons";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
+const geistSans = localFont({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  src: "../public/fonts/Geist[wght].ttf",
+})
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  src: "../public/fonts/GeistMono[wght].ttf",
+})
+
+const title = "License To Spell";
+const description =
+  "A fun word puzzle game where you spell words using the letters on randomly generated license plates. Test your vocabulary and see how many words you can find!";
+
+const images = [
+  {
+    url: "/opengraph-image",
+    width: 1200,
+    height: 630,
+    alt: "License To Spell",
+  },
+]
 
 export const metadata: Metadata = {
-  title: "License To Spell",
-  description: "A fun license plate-themed word game",
+  metadataBase: new URL(process.env.SITE_URL!),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images,
+    type: "website",
+    locale: "en_US",
+    siteName: title,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images,
+  },
 };
 
-const Footer = () => {
+const Footer = ({ className }: { className?: string }) => {
   return (
-    <footer className="flex flex-col items-center text-sm mt-12">
+    <footer className={cn(`flex flex-col items-center text-sm mt-12 ${className}`)}>
       Made with ❤️ by John Munson
       <div className="flex mt-2 gap-3">
         <a href="https://github.com/johncmunson/license-to-spell" className="flex">
@@ -44,8 +73,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-w-[310px] min-h-screen px-3 py-4 sm:p-8 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200`}
       >
-        {children}
-        <Footer />
+        <div className="font-mono">
+          {children}
+        </div>
+        <Footer className="font-mono" />
       </body>
     </html>
   );

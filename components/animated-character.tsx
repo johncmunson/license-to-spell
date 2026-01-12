@@ -51,7 +51,7 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
         className={`
           w-full h-full flex items-center justify-center
           bg-white border-[1.5px] sm:border-2 border-slate-300 rounded-sm sm:rounded-md
-          font-mono font-bold text-slate-800
+          font-bold text-slate-800
           shadow-sm
           transition-transform duration-300 ease-in-out
           ${isFlipping ? "rotate-x-90" : "rotate-x-0"}
