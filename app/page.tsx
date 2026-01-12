@@ -7,14 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Play, Eye, EyeOff, CircleStop, Info } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog"
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 
 const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-amber-50", textColor: "text-amber-700" },
@@ -218,6 +215,7 @@ export default function Home() {
     setShowAllWords(false)
     setTimeRemaining(300)
     setGameState('playing')
+    setShouldClearAndFocus(true)
   }
 
   // Stop the round early
@@ -305,13 +303,13 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Rules Dialog */}
-        <Dialog open={showRulesDialog} onOpenChange={setShowRulesDialog}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-xl">How to Play</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 text-sm text-slate-600">
+        {/* Rules Drawer */}
+        <Drawer open={showRulesDialog} onOpenChange={setShowRulesDialog}>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle className="text-xl">How to Play</DrawerTitle>
+            </DrawerHeader>
+            <div className="space-y-4 text-sm text-slate-600 px-4 pb-8 text-left max-w-[512px] mx-auto">
               <div>
                 <h3 className="font-semibold text-slate-800 mb-1">Objective</h3>
                 <p>
@@ -321,7 +319,7 @@ export default function Home() {
               </div>
               <div>
                 <h3 className="font-semibold text-slate-800 mb-1">Rules</h3>
-                <ul className="list-disc list-insid ml-6 space-y-1">
+                <ul className="list-disc space-y-1 ml-6">
                   <li>Words must <strong>start</strong> with the first letter of the plate</li>
                   <li>All three plate letters must appear in the word, <strong>in order</strong></li>
                   <li>The license plate number indicates the <strong>number of possible words</strong> that can be spelled given the plate letters.</li>
@@ -331,7 +329,7 @@ export default function Home() {
               <div>
                 <h3 className="font-semibold text-slate-800 mb-1">Scoring</h3>
                 <p>
-                  Each valid word scores points equal to its length. A 5-letter word = 5 points, 
+                  Each valid word scores points <strong>equal to its length</strong>. A 5-letter word = 5 points, 
                   an 8-letter word = 8 points, etc.
                 </p>
               </div>
@@ -343,15 +341,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="default" className="w-full sm:w-auto">
-                  Got it!
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+          </DrawerContent>
+        </Drawer>
 
         {/* License Plate */}
         {initialDataLoaded ? (

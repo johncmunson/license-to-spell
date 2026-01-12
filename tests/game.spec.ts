@@ -450,3 +450,48 @@ test.describe('Statistics Display', () => {
   })
 })
 
+test.describe('Input Focus Behavior', () => {
+  test('clicking "Start Game" focuses the word input', async ({ page }) => {
+    await page.goto('/')
+    
+    const wordInput = page.getByPlaceholder(/word|type/i)
+    
+    // Input should not be focused initially
+    await expect(wordInput).not.toBeFocused()
+    
+    // Click Start Game
+    const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
+    await startButton.click()
+    
+    // Input should now be focused
+    await expect(wordInput).toBeFocused()
+  })
+
+  test('clicking "New Round" focuses the word input', async ({ page }) => {
+    await page.goto('/')
+    
+    // Start and end a round first
+    const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
+    await startButton.click()
+    
+    await page.waitForTimeout(500)
+    
+    // Stop the round
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
+    
+    // Blur the input by clicking elsewhere
+    await page.locator('body').click()
+    
+    const wordInput = page.getByPlaceholder(/word|type/i)
+    await expect(wordInput).not.toBeFocused()
+    
+    // Click New Round
+    const newRoundButton = page.getByRole('button', { name: /new round|play again|restart/i })
+    await newRoundButton.click()
+    
+    // Input should now be focused
+    await expect(wordInput).toBeFocused()
+  })
+})
+
