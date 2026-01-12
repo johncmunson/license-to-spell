@@ -26,12 +26,20 @@ test.describe('Game Initialization', () => {
     await expect(wordInput).toBeDisabled()
   })
 
-  test('timer shows initial state (not running or shows 5:00)', async ({ page }) => {
+  test('timer shows 5:00 after starting game', async ({ page }) => {
     await page.goto('/')
     
-    // Timer should show 5:00 or similar initial state
-    const timer = page.getByText(/5:00|05:00/)
+    // Start the game
+    const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
+    await startButton.click()
+    
+    // Timer should be visible (it's the button itself during gameplay)
+    const timer = page.getByTestId('timer')
     await expect(timer).toBeVisible()
+    
+    // Timer text should match time format
+    const timeText = await timer.textContent()
+    expect(timeText).toMatch(/^\d{1,2}:\d{2}$/)
   })
 })
 
@@ -223,14 +231,16 @@ test.describe('Timer Behavior', () => {
     expect(timeText).toMatch(/^\d{1,2}:\d{2}$/)
   })
 
-  test('"Stop Early" button is visible during active round', async ({ page }) => {
+  test('timer button is clickable during active round (acts as stop)', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
     await startButton.click()
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await expect(stopButton).toBeVisible()
+    // The timer is now the stop button during gameplay
+    const timerButton = page.getByTestId('timer')
+    await expect(timerButton).toBeVisible()
+    await expect(timerButton).toBeEnabled()
   })
 
   test('round ends automatically when timer reaches 0:00', async ({ page }) => {
@@ -249,7 +259,7 @@ test.describe('Timer Behavior', () => {
 })
 
 test.describe('Stopping Early', () => {
-  test('"Stop Early" button ends the round', async ({ page }) => {
+  test('clicking timer button ends the round', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
@@ -258,15 +268,16 @@ test.describe('Stopping Early', () => {
     // Wait a moment for game to start
     await page.waitForTimeout(500)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // The timer button acts as the stop button
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
     // End-of-round UI should appear
     const newRoundButton = page.getByRole('button', { name: /new round|play again|restart/i })
     await expect(newRoundButton).toBeVisible()
   })
 
-  test('timer stops when "Stop Early" is clicked', async ({ page }) => {
+  test('timer stops when clicked', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
@@ -274,8 +285,9 @@ test.describe('Stopping Early', () => {
     
     await page.waitForTimeout(1000)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // Click the timer to stop
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
     const timer = page.getByTestId('timer')
     const timeAfterStop = await timer.textContent()
@@ -297,14 +309,15 @@ test.describe('End of Round', () => {
     
     await page.waitForTimeout(500)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // Click timer to stop the round
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
     const newRoundButton = page.getByRole('button', { name: /new round|play again|restart/i })
     await expect(newRoundButton).toBeVisible()
   })
 
-  test('"Show All Words" button reveals valid word list', async ({ page }) => {
+  test('"All Words" toggle reveals valid word list', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
@@ -312,10 +325,12 @@ test.describe('End of Round', () => {
     
     await page.waitForTimeout(500)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // Click timer to stop the round
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
-    const showWordsButton = page.getByRole('button', { name: /show.*words|view.*words|all.*words|reveal/i })
+    // The toggle is now in the words section header
+    const showWordsButton = page.getByRole('button', { name: /all.*words/i })
     await expect(showWordsButton).toBeVisible()
     
     await showWordsButton.click()
@@ -333,8 +348,9 @@ test.describe('End of Round', () => {
     
     await page.waitForTimeout(500)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // Click timer to stop the round
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
     const finalScore = page.getByTestId('final-score')
     await expect(finalScore).toBeVisible()
@@ -348,8 +364,9 @@ test.describe('End of Round', () => {
     
     await page.waitForTimeout(500)
     
-    const stopButton = page.getByRole('button', { name: /stop|end|quit/i })
-    await stopButton.click()
+    // Click timer to stop the round
+    const timerButton = page.getByTestId('timer')
+    await timerButton.click()
     
     const newRoundButton = page.getByRole('button', { name: /new round|play again|restart/i })
     await newRoundButton.click()
