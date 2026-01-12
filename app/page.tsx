@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react"
 import { LicensePlate } from "@/components/license-plate"
 import { WordInput } from "@/components/word-input"
 import { Button } from "@/components/ui/button"
-import { Shuffle, Play, Eye, EyeOff, CircleStop } from "lucide-react"
+import { Play, Eye, EyeOff, CircleStop } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
 
 // All 50 U.S. states
@@ -67,6 +67,7 @@ export default function Home() {
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([])
   const [currentGuess, setCurrentGuess] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
+  const [errorKey, setErrorKey] = useState(0)
   const [showAllWords, setShowAllWords] = useState(false)
   const [dictionary, setDictionary] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -136,6 +137,16 @@ export default function Home() {
     }
   }, [shouldClearAndFocus])
 
+  // Auto-clear error message after fade animation (2 seconds)
+  useEffect(() => {
+    if (errorMessage) {
+      const timeout = setTimeout(() => {
+        setErrorMessage("")
+      }, 2000)
+      return () => clearTimeout(timeout)
+    }
+  }, [errorMessage])
+
   // Generate a valid plate with at least 100 words
   const generatePlate = useCallback(async () => {
     if (dictionary.length === 0) {
@@ -195,6 +206,7 @@ export default function Home() {
     // Check if already guessed
     if (correctGuesses.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Already guessed!")
+      setErrorKey(k => k + 1)
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -203,6 +215,7 @@ export default function Home() {
     // Check if word is valid for the plate
     if (!isValidWord(letters, guess)) {
       setErrorMessage("Invalid word!")
+      setErrorKey(k => k + 1)
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -211,6 +224,7 @@ export default function Home() {
     // Check if word is in dictionary (valid words list)
     if (!validWords.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Invalid word!")
+      setErrorKey(k => k + 1)
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -244,56 +258,6 @@ export default function Home() {
           textColor={colors.textColor}
         />
 
-        {/* Timer / Game Control Button */}
-        <div className="flex justify-center">
-          {gameState === 'idle' && (
-            <Button 
-              onClick={generatePlate} 
-              variant="outline" 
-              className="gap-3 bg-white hover:bg-slate-50 w-48 h-14 text-lg"
-              disabled={isLoading}
-            >
-              <Shuffle className="w-5 h-5" />
-              {isLoading ? 'Loading...' : 'Start Game'}
-            </Button>
-          )}
-          
-          {gameState === 'playing' && (
-            <Button 
-              onClick={stopRound} 
-              variant="outline" 
-              className={`gap-3 w-48 h-14 transition-colors ${
-                timeRemaining <= 60 
-                  ? 'text-red-600 border-red-300 hover:bg-red-50' 
-                  : 'text-slate-700 border-slate-300 hover:bg-slate-50'
-              }`}
-              data-testid="timer"
-            >
-              <CircleStop className="w-5 h-5 text-red-600" />
-              <span className="font-mono text-2xl font-bold">{formatTime(timeRemaining)}</span>
-            </Button>
-          )}
-          
-          {gameState === 'ended' && (
-            <>
-              <div 
-                data-testid="timer" 
-                className="hidden"
-              >
-                {formatTime(timeRemaining)}
-              </div>
-              <Button 
-                onClick={startNewRound} 
-                variant="outline" 
-                className="gap-3 bg-white hover:bg-emerald-50 text-emerald-600 border-emerald-200 w-48 h-14 text-lg"
-              >
-                <Play className="w-5 h-5" />
-                New Round
-              </Button>
-            </>
-          )}
-        </div>
-
         {/* Word Input */}
         <WordInput
           value={currentGuess}
@@ -308,33 +272,87 @@ export default function Home() {
           disabled={gameState !== 'playing'}
         />
 
-        {/* Error Message */}
-        {errorMessage && (
-          <div 
-            data-testid="error-message" 
-            className="text-red-600 font-medium animate-pulse"
-          >
-            {errorMessage}
-          </div>
-        )}
+        {/* Error Message - positioned absolutely to prevent CLS */}
+        <div className="h-6 relative w-full max-w-md">
+          {errorMessage && (
+            <div 
+              key={errorKey}
+              data-testid="error-message" 
+              className="absolute inset-0 flex items-center justify-center text-red-600 font-medium animate-fade-out"
+            >
+              {errorMessage}
+            </div>
+          )}
+        </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-3 gap-4 w-full max-w-md text-center">
+        <div className="grid grid-cols-4 gap-3 w-full max-w-xl text-center">
+          {/* Game Control Box */}
+          {gameState === 'idle' && (
+            <button
+              onClick={generatePlate}
+              disabled={isLoading}
+              className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <div className="text-sm text-slate-500 mb-1">
+                {isLoading ? 'Loading...' : 'Start Game'}
+              </div>
+              <div className="flex justify-center">
+                <Play className="w-8 h-8 text-emerald-500 fill-emerald-500" />
+              </div>
+            </button>
+          )}
+          
+          {gameState === 'playing' && (
+            <button
+              onClick={stopRound}
+              data-testid="timer"
+              className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer"
+            >
+              <div className={`text-sm font-mono font-bold mb-1 ${
+                timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500'
+              }`}>
+                {formatTime(timeRemaining)}
+              </div>
+              <div className="flex justify-center">
+                <CircleStop className="w-8 h-8 text-red-500" />
+              </div>
+            </button>
+          )}
+          
+          {gameState === 'ended' && (
+            <>
+              <div data-testid="timer" className="hidden">
+                {formatTime(timeRemaining)}
+              </div>
+              <button
+                onClick={startNewRound}
+                className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <div className="text-sm text-slate-500 mb-1">New Round</div>
+                <div className="flex justify-center">
+                  <Play className="w-8 h-8 text-emerald-500 fill-emerald-500" />
+                </div>
+              </button>
+            </>
+          )}
+          
           <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
             <div className="text-sm text-slate-500 mb-1">Score</div>
             <div data-testid="current-score" className="text-2xl font-bold text-blue-600">
-              {currentScore}
+              {currentScore.toLocaleString()}
             </div>
+            {/* Hidden element for test compatibility */}
             {gameState === 'ended' && (
-              <div data-testid="final-score" className="text-xs text-slate-400 mt-1">
-                Final: {currentScore}
+              <div data-testid="final-score" className="hidden">
+                {currentScore}
               </div>
             )}
           </div>
           <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
             <div className="text-sm text-slate-500 mb-1">Possible</div>
             <div data-testid="total-possible-points" className="text-2xl font-bold text-emerald-600">
-              {stats.totalPoints}
+              {stats.totalPoints.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg p-4 shadow-sm border border-slate-200">

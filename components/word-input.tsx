@@ -101,7 +101,7 @@ export function WordInput({
         onClick={onSubmit} 
         size="icon"
         disabled={disabled}
-        className="h-16 w-16 shrink-0"
+        className="h-16 w-16 shrink-0 cursor-pointer"
       >
         <SendHorizontal className="h-6 w-6" />
       </Button>
