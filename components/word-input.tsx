@@ -101,9 +101,9 @@ export function WordInput({
         onClick={onSubmit} 
         size="icon"
         disabled={disabled}
-        className="h-16 w-16 shrink-0 cursor-pointer"
+        className="h-16 w-16 shrink-0 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white"
       >
-        <SendHorizontal className="h-6 w-6" />
+        <SendHorizontal className="w-8 h-8" />
       </Button>
     </div>
   )

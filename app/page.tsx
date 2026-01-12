@@ -307,10 +307,12 @@ export default function Home() {
             <button
               onClick={stopRound}
               data-testid="timer"
-              className="bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer"
+              className={`bg-white rounded-lg p-4 shadow-sm border border-slate-200 hover:bg-red-50 transition-colors cursor-pointer group ${
+                timeRemaining <= 60 ? 'border-red-200' : ''
+              }`}
             >
               <div className={`text-sm font-mono font-bold mb-1 ${
-                timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500'
+                timeRemaining <= 60 ? 'text-red-600' : 'text-slate-500 group-hover:text-slate-600'
               }`}>
                 {formatTime(timeRemaining)}
               </div>
