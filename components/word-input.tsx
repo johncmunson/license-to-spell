@@ -13,6 +13,7 @@ interface WordInputProps {
   shouldSelect?: boolean
   shouldClearAndFocus?: boolean
   maxLength?: number
+  disabled?: boolean
 }
 
 export function WordInput({
@@ -23,6 +24,7 @@ export function WordInput({
   shouldSelect = false,
   shouldClearAndFocus = false,
   maxLength = 31,
+  disabled = false,
 }: WordInputProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -76,11 +78,13 @@ export function WordInput({
           onKeyDown={handleKeyDown}
           maxLength={maxLength}
           placeholder="TYPE A WORD"
+          disabled={disabled}
           className={`
             w-full px-4 py-4 rounded-lg border-2 border-slate-300
             bg-white text-center font-bold uppercase tracking-wider
             placeholder:text-slate-300 placeholder:font-normal
             focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+            disabled:bg-slate-100 disabled:cursor-not-allowed disabled:text-slate-400
             transition-all duration-200
             h-16
             ${getFontSize()}
@@ -92,7 +96,12 @@ export function WordInput({
         />
       </div>
 
-      <Button onClick={onSubmit} className="px-8 py-3 text-lg font-semibold" size="lg">
+      <Button 
+        onClick={onSubmit} 
+        className="px-8 py-3 text-lg font-semibold" 
+        size="lg"
+        disabled={disabled}
+      >
         Submit
       </Button>
 

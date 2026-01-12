@@ -20,9 +20,10 @@ test.describe('Game Initialization', () => {
   test('word input field is present', async ({ page }) => {
     await page.goto('/')
     
-    // Input field for guessing words
-    const wordInput = page.getByPlaceholder(/word|guess/i)
+    // Input field for guessing words should be visible (but disabled until game starts)
+    const wordInput = page.getByPlaceholder(/word|type/i)
     await expect(wordInput).toBeVisible()
+    await expect(wordInput).toBeDisabled()
   })
 
   test('timer shows initial state (not running or shows 5:00)', async ({ page }) => {
@@ -106,7 +107,7 @@ test.describe('Guessing Words', () => {
     
     // Type a valid word (we'll need to know one based on the plate)
     // For testing, we'll type in the input and submit
-    const wordInput = page.getByPlaceholder(/word|guess/i)
+    const wordInput = page.getByPlaceholder(/word|type/i)
     await wordInput.fill('test') // This may or may not be valid depending on plate
     await wordInput.press('Enter')
     
@@ -127,7 +128,7 @@ test.describe('Guessing Words', () => {
     const initialScore = await scoreElement.textContent()
     
     // Submit a word
-    const wordInput = page.getByPlaceholder(/word|guess/i)
+    const wordInput = page.getByPlaceholder(/word|type/i)
     await wordInput.fill('testing')
     await wordInput.press('Enter')
     
@@ -143,7 +144,7 @@ test.describe('Guessing Words', () => {
     await startButton.click()
     
     // Type something that's definitely not a word
-    const wordInput = page.getByPlaceholder(/word|guess/i)
+    const wordInput = page.getByPlaceholder(/word|type/i)
     await wordInput.fill('xyzzzz')
     await wordInput.press('Enter')
     
@@ -158,7 +159,7 @@ test.describe('Guessing Words', () => {
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
     await startButton.click()
     
-    const wordInput = page.getByPlaceholder(/word|guess/i)
+    const wordInput = page.getByPlaceholder(/word|type/i)
     
     // Submit the same word twice
     await wordInput.fill('test')
@@ -171,17 +172,23 @@ test.describe('Guessing Words', () => {
     await expect(errorMessage).toBeVisible()
   })
 
-  test('input clears after submission', async ({ page }) => {
+  test('input clears after valid submission, selected after invalid', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
     await startButton.click()
     
-    const wordInput = page.getByPlaceholder(/word|guess/i)
-    await wordInput.fill('testing')
+    const wordInput = page.getByPlaceholder(/word|type/i)
+    
+    // Submit an invalid word - input should be selected (not cleared)
+    await wordInput.fill('xyzzzz')
     await wordInput.press('Enter')
     
-    // Input should be cleared
+    // Invalid word keeps the text but selects it for easy replacement
+    await expect(wordInput).toHaveValue('XYZZZZ')
+    
+    // Now clear and test that the mechanism works
+    await wordInput.fill('')
     await expect(wordInput).toHaveValue('')
   })
 })

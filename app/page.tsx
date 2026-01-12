@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react"
 import { LicensePlate } from "@/components/license-plate"
+import { WordInput } from "@/components/word-input"
 import { Button } from "@/components/ui/button"
 import { Shuffle, Square, Play, Eye } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
@@ -70,8 +71,12 @@ export default function Home() {
   const [dictionary, setDictionary] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
   
+  // Word input state
+  const [isShaking, setIsShaking] = useState(false)
+  const [shouldSelect, setShouldSelect] = useState(false)
+  const [shouldClearAndFocus, setShouldClearAndFocus] = useState(false)
+  
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   // Load dictionary on mount
   useEffect(() => {
@@ -110,12 +115,26 @@ export default function Home() {
     }
   }, [gameState, timeRemaining])
 
-  // Focus input when game starts
+  // Reset shake/select states after animation
   useEffect(() => {
-    if (gameState === 'playing' && inputRef.current) {
-      inputRef.current.focus()
+    if (isShaking) {
+      const timeout = setTimeout(() => {
+        setIsShaking(false)
+        setShouldSelect(false)
+      }, 500)
+      return () => clearTimeout(timeout)
     }
-  }, [gameState])
+  }, [isShaking])
+
+  // Reset clear and focus state
+  useEffect(() => {
+    if (shouldClearAndFocus) {
+      const timeout = setTimeout(() => {
+        setShouldClearAndFocus(false)
+      }, 100)
+      return () => clearTimeout(timeout)
+    }
+  }, [shouldClearAndFocus])
 
   // Generate a valid plate with at least 100 words
   const generatePlate = useCallback(async () => {
@@ -166,37 +185,42 @@ export default function Home() {
   }, [generatePlate])
 
   // Handle word submission
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault()
-    
+  const handleSubmit = useCallback(() => {
     if (gameState !== 'playing') return
     
     const guess = currentGuess.trim().toLowerCase()
-    setCurrentGuess("")
     
     if (!guess) return
     
     // Check if already guessed
     if (correctGuesses.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Already guessed!")
+      setIsShaking(true)
+      setShouldSelect(true)
       return
     }
     
     // Check if word is valid for the plate
     if (!isValidWord(letters, guess)) {
       setErrorMessage("Invalid word!")
+      setIsShaking(true)
+      setShouldSelect(true)
       return
     }
     
     // Check if word is in dictionary (valid words list)
     if (!validWords.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Invalid word!")
+      setIsShaking(true)
+      setShouldSelect(true)
       return
     }
     
     // Valid guess!
     setCorrectGuesses(prev => [...prev, guess])
+    setCurrentGuess("")
     setErrorMessage("")
+    setShouldClearAndFocus(true)
   }, [currentGuess, correctGuesses, gameState, letters, validWords])
 
   // Calculate current score and stats
@@ -280,23 +304,18 @@ export default function Home() {
         </div>
 
         {/* Word Input */}
-        <form onSubmit={handleSubmit} className="w-full max-w-md">
-          <input
-            ref={inputRef}
-            type="text"
-            value={currentGuess}
-            onChange={(e) => {
-              setCurrentGuess(e.target.value)
-              setErrorMessage("")
-            }}
-            placeholder="Enter a word..."
-            disabled={gameState !== 'playing'}
-            className="w-full px-4 py-3 text-lg border-2 border-slate-300 rounded-lg 
-                     focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200
-                     disabled:bg-slate-100 disabled:cursor-not-allowed
-                     transition-all"
-          />
-        </form>
+        <WordInput
+          value={currentGuess}
+          onChange={(value) => {
+            setCurrentGuess(value)
+            setErrorMessage("")
+          }}
+          onSubmit={handleSubmit}
+          isShaking={isShaking}
+          shouldSelect={shouldSelect}
+          shouldClearAndFocus={shouldClearAndFocus}
+          disabled={gameState !== 'playing'}
+        />
 
         {/* Error Message */}
         {errorMessage && (
