@@ -83,14 +83,16 @@ function randomLetter(): string {
 }
 
 /**
- * Generates a random 3-letter plate that has at least minWords valid words
+ * Generates a random 3-letter plate that has between minWords and maxWords valid words
  * @param dictionary - Array of words to check against
  * @param minWords - Minimum number of valid words required (default: 100)
+ * @param maxWords - Maximum number of valid words allowed (default: 999)
  * @returns Object containing the plate letters and the count of valid words
  */
 export function generateValidPlate(
   dictionary: string[],
-  minWords: number = 100
+  minWords: number = 100,
+  maxWords: number = 999
 ): { letters: string; wordCount: number; validWords: string[] } {
   let letters: string
   let validWords: string[]
@@ -98,7 +100,7 @@ export function generateValidPlate(
   do {
     letters = randomLetter() + randomLetter() + randomLetter()
     validWords = getValidWords(letters, dictionary)
-  } while (validWords.length < minWords)
+  } while (validWords.length < minWords || validWords.length > maxWords)
   
   return {
     letters,

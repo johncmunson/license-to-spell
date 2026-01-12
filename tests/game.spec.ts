@@ -57,17 +57,18 @@ test.describe('Starting a Round', () => {
     await expect(timer).not.toHaveText('5:00')
   })
 
-  test('license plate displays a number >= 100', async ({ page }) => {
+  test('license plate displays a number between 100 and 999', async ({ page }) => {
     await page.goto('/')
     
     const startButton = page.getByRole('button', { name: /randomize|start|new game/i })
     await startButton.click()
     
-    // The license plate number should be >= 100
+    // The license plate number should be between 100 and 999 (inclusive)
     const plateNumber = page.getByTestId('plate-number')
     const numberText = await plateNumber.textContent()
     const number = parseInt(numberText || '0', 10)
     expect(number).toBeGreaterThanOrEqual(100)
+    expect(number).toBeLessThanOrEqual(999)
   })
 
   test('score displays 0 initially', async ({ page }) => {

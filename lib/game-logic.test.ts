@@ -219,5 +219,28 @@ describe('generateValidPlate', () => {
     const result = generateValidPlate(largeDictionary, 100)
     expect(result.wordCount).toBeGreaterThanOrEqual(100)
   })
+
+  it('regenerates if word count is above the maximum threshold', () => {
+    // Create a dictionary where "CAT" matches many words but we want to limit to 50 max
+    const largeDictionary = [
+      ...Array.from({ length: 200 }, (_, i) => `cat${String(i).padStart(3, '0')}`),
+      ...Array.from({ length: 30 }, (_, i) => `bat${String(i).padStart(3, '0')}`),
+    ]
+    // With maxWords = 50, the function should reject plates with > 50 words (like CAT with 200)
+    // and keep trying until it finds one within range
+    const result = generateValidPlate(largeDictionary, 20, 50)
+    expect(result.wordCount).toBeGreaterThanOrEqual(20)
+    expect(result.wordCount).toBeLessThanOrEqual(50)
+  })
+
+  it('generates a plate with word count between 100 and 999 by default', () => {
+    // Create a controlled dictionary
+    const dictionary = [
+      ...Array.from({ length: 150 }, (_, i) => `cat${String(i).padStart(3, '0')}`),
+    ]
+    const result = generateValidPlate(dictionary, 100, 999)
+    expect(result.wordCount).toBeGreaterThanOrEqual(100)
+    expect(result.wordCount).toBeLessThanOrEqual(999)
+  })
 })
 

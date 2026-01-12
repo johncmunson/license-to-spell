@@ -4,8 +4,17 @@ import { useState, useCallback, useEffect, useRef } from "react"
 import { LicensePlate } from "@/components/license-plate"
 import { WordInput } from "@/components/word-input"
 import { Button } from "@/components/ui/button"
-import { Play, Eye, EyeOff, CircleStop } from "lucide-react"
+import { Play, Eye, EyeOff, CircleStop, Info } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog"
 
 const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-amber-50", textColor: "text-amber-700" },
@@ -63,6 +72,9 @@ export default function Home() {
   const [isShaking, setIsShaking] = useState(false)
   const [shouldSelect, setShouldSelect] = useState(false)
   const [shouldClearAndFocus, setShouldClearAndFocus] = useState(false)
+  
+  // Rules dialog state
+  const [showRulesDialog, setShowRulesDialog] = useState(false)
   
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -277,9 +289,65 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 p-4 md:p-8">
       <div className="w-full max-w-2xl flex flex-col items-center gap-6">
         {/* Header */}
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-          LICENSE TO SPELL
-        </h1>
+        <div className="flex items-center gap-2 mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+            LICENSE TO SPELL
+          </h1>
+          <button
+            onClick={() => setShowRulesDialog(true)}
+            className="text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
+            aria-label="Game rules and scoring"
+          >
+            <Info className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Rules Dialog */}
+        <Dialog open={showRulesDialog} onOpenChange={setShowRulesDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-xl">How to Play</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 text-sm text-slate-600">
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-1">Objective</h3>
+                <p>
+                  Guess as many words as possible that match the license plate letters 
+                  before time runs out!
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-1">Rules</h3>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Words must <strong>start</strong> with the first letter of the plate</li>
+                  <li>All three plate letters must appear in the word, <strong>in order</strong></li>
+                  <li>You have <strong>5 minutes</strong> per round</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-1">Scoring</h3>
+                <p>
+                  Each valid word scores points equal to its length. A 5-letter word = 5 points, 
+                  an 8-letter word = 8 points, etc.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-1">Example</h3>
+                <p>
+                  For plate <span className="font-mono font-bold">BAM</span>, valid words include: 
+                  <span className="font-mono"> BECAME, BEAM, BASEMENT, etc.</span>
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="default" className="w-full sm:w-auto">
+                  Got it!
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* License Plate */}
         {initialDataLoaded ? (
