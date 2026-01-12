@@ -492,27 +492,28 @@ export default function Home() {
             >
               {showAllWords ? `All Words (${validWords.length})` : `Your Words (${correctGuesses.length})`}
             </h2>
-            {gameState === 'ended' && (
-              <Button
-                onClick={() => setShowAllWords(!showAllWords)}
-                variant="ghost"
-                size="sm"
-                className="gap-1 cursor-pointer text-slate-500 hover:text-slate-700"
-                style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
-              >
-                {showAllWords ? (
-                  <>
-                    <EyeOff style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
-                    Your Words
-                  </>
-                ) : (
-                  <>
-                    <Eye style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
-                    All Words
-                  </>
-                )}
-              </Button>
-            )}
+            <Button
+              onClick={() => setShowAllWords(!showAllWords)}
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "gap-1 cursor-pointer text-slate-500 hover:text-slate-700",
+                gameState !== 'ended' && "invisible"
+              )}
+              style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)' }}
+            >
+              {showAllWords ? (
+                <>
+                  <EyeOff style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
+                  Your Words
+                </>
+              ) : (
+                <>
+                  <Eye style={{ width: 'clamp(0.75rem, 2vw, 1rem)', height: 'clamp(0.75rem, 2vw, 1rem)' }} />
+                  All Words
+                </>
+              )}
+            </Button>
           </div>
           
           {/* Words container */}
