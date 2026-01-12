@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { SendHorizontal } from "lucide-react"
 
 interface WordInputProps {
   value: string
@@ -68,8 +69,8 @@ export function WordInput({
   }
 
   return (
-    <div className="w-full max-w-md flex flex-col items-center gap-4">
-      <div className="relative w-full">
+    <div className="w-full max-w-md flex items-center gap-2">
+      <div className="relative flex-1">
         <input
           ref={inputRef}
           type="text"
@@ -98,11 +99,11 @@ export function WordInput({
 
       <Button 
         onClick={onSubmit} 
-        className="px-8 py-3 text-lg font-semibold" 
-        size="lg"
+        size="icon"
         disabled={disabled}
+        className="h-16 w-16 shrink-0"
       >
-        Submit
+        <SendHorizontal className="h-6 w-6" />
       </Button>
     </div>
   )
