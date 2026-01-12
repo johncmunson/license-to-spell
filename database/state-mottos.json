@@ -1,0 +1,370 @@
+{
+    "ALABAMA": [
+      "ROLL TIDE AND ARGUE",
+      "FOOTBALL IS GOD",
+      "PLEASE IGNORE THE NEWS",
+      "LOUD AND SOUTHERN",
+      "WE MEAN WELL"
+    ],
+    "ALASKA": [
+      "WHY DO YOU LIVE HERE",
+      "COLD AND ALONE",
+      "TOO FAR TO CARE",
+      "SURVIVAL MODE",
+      "NO ONE COMING"
+    ],
+    "ARIZONA": [
+      "DRY HEAT DELUSION",
+      "WHY IS IT STILL HOT",
+      "SUN BAKED EVERYTHING",
+      "WELCOME TO THE OVEN",
+      "RETIRE AND MELT"
+    ],
+    "ARKANSAS": [
+      "PLEASE DO NOT LAUGH",
+      "QUIETLY EXISTING",
+      "WALMART AND WOODS",
+      "COUNTRY BUT TRYING",
+      "UNDERRATED AND UNBOTHERED"
+    ],
+    "CALIFORNIA": [
+      "HOLLYWOOD DREAMING",
+      "STUCK IN TRAFFIC",
+      "PLEASE LIKE ME",
+      "STREAM IT LATER",
+      "WELLNESS OVER FACTS",
+      "SILICON AND SUNBURN",
+      "WE ARE VERY IMPORTANT"
+    ],
+    "COLORADO": [
+      "HIGHER THAN YOU",
+      "ROCKY MTN VIBES",
+      "ALTITUDE WITH ATTITUDE",
+      "LEGAL AND LOFTY",
+      "MILE HIGH MISCHIEF",
+      "THIN AIR THICK BEARDS",
+      "WHERE OXYGEN IS OPTIONAL"
+    ],
+    "CONNECTICUT": [
+      "PASSING THROUGH",
+      "NEW YORKS DRIVEWAY",
+      "QUIETLY RICH",
+      "HEDGE FUNDED FEELINGS",
+      "WE DONT LIVE HERE"
+    ],
+    "DELAWARE": [
+      "TAXES NOT INCLUDED",
+      "INCORPORATED",
+      "WHERE COMPANIES LIVE",
+      "SMALL AND SHADY",
+      "LEGALLY IMPORTANT"
+    ],
+    "FLORIDA": [
+      "WHAT COULD GO WRONG",
+      "SUN SWEAT AND SIRENS",
+      "MAN ON THE LOOSE",
+      "WELCOME TO THE HEADLINES",
+      "UNHINGED AND UNBOTHERED",
+      "WE WARNED YOU"
+    ],
+    "GEORGIA": [
+      "ATLANTA DOES EVERYTHING",
+      "SWEET BUT PETTY",
+      "WE RUN THE SOUTH",
+      "PEACHES AND DRAMA",
+      "BLESSED AND STRESSED"
+    ],
+    "HAWAII": [
+      "PARADISE FOR SALE",
+      "YOU WILL LEAVE",
+      "ALOHA CAPITALISM",
+      "SUNBURNED AND BROKE",
+      "WE LIVE HERE"
+    ],
+    "IDAHO": [
+      "STILL POTATOES",
+      "WHAT EVEN IS IDAHO",
+      "MASHED AND MISTAKEN",
+      "YES THIS IS A STATE",
+      "ROOTED IN STARCH"
+    ],
+    "ILLINOIS": [
+      "MOSTLY CHICAGO",
+      "POLITICS AS USUAL",
+      "POTHOLES AND POWER",
+      "WIND AND BRIBES",
+      "WE TRIED"
+    ],
+    "INDIANA": [
+      "STILL WAITING",
+      "VERY MIDWEST",
+      "CORN BUT LOUD",
+      "FAST CARS SLOW LIVES",
+      "WHY NOT"
+    ],
+    "IOWA": [
+      "CORN AND OPINIONS",
+      "POLITICS AND PLAINS",
+      "FIRST TO ARGUE",
+      "STILL GROWING SOMETHING",
+      "FLAT BUT FOCUSED"
+    ],
+    "KANSAS": [
+      "STILL FLAT",
+      "NOT IN OZ",
+      "MORE WHEAT THAN PEOPLE",
+      "JUST SKY",
+      "YOU CAN SEE EVERYTHING"
+    ],
+    "KENTUCKY": [
+      "WHISKEY AND WINNINGS",
+      "BET ON IT",
+      "RUN FAST DRINK SLOW",
+      "HORSES AND HANGOVERS",
+      "AGED AND OPINIONATED"
+    ],
+    "LOUISIANA": [
+      "LET THE GOOD TIMES COLLAPSE",
+      "PARTY THROUGH IT",
+      "SPICY AND STRESSED",
+      "MUSIC AND MISERY",
+      "WE EAT OUR FEELINGS"
+    ],
+    "MAINE": [
+      "COLD AND CONTENT",
+      "LOBSTER AND LONELINESS",
+      "WE LIKE IT QUIET",
+      "STILL FAR AWAY",
+      "GRAY BUT PEACEFUL"
+    ],
+    "MARYLAND": [
+      "CRABS AND COMMUTING",
+      "NOT DC BUT CLOSE",
+      "OLD BAY EVERYTHING",
+      "SUBURBAN CHAOS",
+      "WE DRIVE TERRIBLY"
+    ],
+    "MASSACHUSETTS": [
+      "WE INVENTED YOU",
+      "SMARTER THAN YOU",
+      "ACCENTS AND ATTITUDE",
+      "EDUCATED AND IRRITATED",
+      "HISTORY WITH EGO"
+    ],
+    "MICHIGAN": [
+      "STILL FIXING IT",
+      "WATER AND WORRY",
+      "FORMERLY GREAT",
+      "RUST BUT HOPE",
+      "LAKES AND LAYOFFS"
+    ],
+    "MINNESOTA": [
+      "NICE BUT JUDGING",
+      "SORRY ABOUT EVERYTHING",
+      "COLD AND POLITE",
+      "EMOTIONALLY FROZEN",
+      "WE MEANT WELL"
+    ],
+    "MISSISSIPPI": [
+      "WE ARE TRYING",
+      "PLEASE DONT JUDGE",
+      "HARD TIMES HOLDING",
+      "STILL HERE STILL POOR",
+      "SLOW BUT STANDING"
+    ],
+    "MISSOURI": [
+      "PROVE IT",
+      "WE DONT BELIEVE YOU",
+      "SHOW ME SOMETHING",
+      "SUSPICIOUS BY NATURE",
+      "STILL WAITING"
+    ],
+    "MONTANA": [
+      "JUST MORE NOTHING",
+      "SPACE FOR YOUR THOUGHTS",
+      "WHERE PEOPLE ARE OPTIONAL",
+      "COWS PER HUMAN",
+      "ENDLESS BUT EMPTY"
+    ],
+    "NEBRASKA": [
+      "CORN WITH COMMITMENT",
+      "JUST KEEP DRIVING",
+      "WE LIKE IT EMPTY",
+      "PLAINS AND PAIN",
+      "STILL FLAT"
+    ],
+    "NEVADA": [
+      "LOSE IT ALL HERE",
+      "WHAT HAPPENS STAYS",
+      "DESPERATE AND LIT",
+      "ODDS NOT INCLUDED",
+      "SPIN TIL BROKE"
+    ],
+    "NEW HAMPSHIRE": [
+      "FREE BUT ANGRY",
+      "NO TAX NO CHILL",
+      "WE HATE EVERYTHING",
+      "LIBERTY WITH ATTITUDE",
+      "DONT TREAD PLEASE"
+    ],
+    "NEW JERSEY": [
+      "STILL NOT NEW YORK",
+      "EXIT 12 ENERGY",
+      "WHAT ARE YOU LOOKING AT",
+      "WE ARE NOT MAD",
+      "IT IS FINE"
+    ],
+    "NEW MEXICO": [
+      "ALIENS AND ADOBE",
+      "NOT ACTUALLY MEXICO",
+      "SPICY AND SPOOKY",
+      "DESERT MYSTERIES",
+      "WEIRD BUT WARM"
+    ],
+    "NEW YORK": [
+      "MOVE OR DIE",
+      "WE ARE WALKING HERE",
+      "NO TIME FOR YOU",
+      "LOUDER THAN YOU",
+      "EVERYONE IS A STAR",
+      "COFFEE IS SURVIVAL"
+    ],
+    "NORTH CAROLINA": [
+      "EVERYONE JUST MOVED HERE",
+      "BANKS AND BARBECUE",
+      "HALF NEW YORK",
+      "BASKETBALL RELIGION",
+      "WE USED TO BE QUIET"
+    ],
+    "NORTH DAKOTA": [
+      "TEMPORARILY POPULATED",
+      "COLD AND BUSY SOMETIMES",
+      "WAIT IT GETS WORSE",
+      "OIL AND DESPAIR"
+    ],
+    "OHIO": [
+      "STILL A STATE",
+      "YOU PASSED THROUGH",
+      "WHY ARE YOU HERE",
+      "MIDDLE OF SOMEWHERE",
+      "WE PROMISE ITS REAL"
+    ],
+    "OKLAHOMA": [
+      "WIND AND WORRY",
+      "STILL TORNADOING",
+      "FLAT AND FRANTIC",
+      "WEATHER IS PERSONAL",
+      "WHY IS IT YELLOW"
+    ],
+    "OREGON": [
+      "STILL WEIRD",
+      "VIBES OVER WORK",
+      "IT IS PROBABLY RAINING",
+      "CRAFTED AND CONFLICTED",
+      "NO ONE IS NORMAL"
+    ],
+    "PENNSYLVANIA": [
+      "TWO CITIES FIGHTING",
+      "STILL VERY ANGRY",
+      "POTHOLES FOREVER",
+      "HISTORY AND RAGE",
+      "BROKE BUT OPINIONATED"
+    ],
+    "RHODE ISLAND": [
+      "WE ARE A REAL STATE",
+      "STILL HERE",
+      "SMALL BUT TOUCHY",
+      "YES WE EXIST",
+      "PLEASE NOTICE US"
+    ],
+    "SOUTH CAROLINA": [
+      "RETIRE AND COMPLAIN",
+      "POLITE BUT JUDGING",
+      "GOLF AND GUILT",
+      "HISTORY BUT SUNSCREEN",
+      "OLD MONEY NEW RULES"
+    ],
+    "SOUTH DAKOTA": [
+      "JUST THE FACES",
+      "RUSHMORE AND REST",
+      "TOURISM AND TUMBLEWEED",
+      "NOT MUCH ELSE",
+      "WE HAVE A MONUMENT"
+    ],
+    "TENNESSEE": [
+      "NASHVILLE RUNS IT",
+      "MUSIC AND MISTAKES",
+      "HONKY TONK ECONOMY",
+      "LOUD AND SOUTHERN",
+      "STILL ON TOUR"
+    ],
+    "TEXAS": [
+      "BIGGER THAN FACTS",
+      "ASK ME ABOUT TEXAS",
+      "YALL MEANS ME",
+      "LOUD AND PROUD",
+      "FREEDOM PER GALLON",
+      "ABSOLUTELY TEXAS"
+    ],
+    "UTAH": [
+      "SMILE AND OBEY",
+      "HOLY AND QUIET",
+      "FUN IS SUSPICIOUS",
+      "NICE BUT JUDGING",
+      "WE ARE PRAYING ABOUT IT"
+    ],
+    "VERMONT": [
+      "ORGANIC AND OPINIONATED",
+      "WEED AND WOO",
+      "MAPLE AND MORALS",
+      "SMALL BUT SMUG",
+      "LOCALLY SUPERIOR"
+    ],
+    "VIRGINIA": [
+      "PLEASE RESPECT US",
+      "FORMERLY IMPORTANT",
+      "FEDERAL AND FRUSTRATED",
+      "SUBURBS OF POWER",
+      "OLD MONEY NEW ANXIETY"
+    ],
+    "WASHINGTON": [
+      "STILL RAINING",
+      "PLEASE DO NOT TALK",
+      "CODE AND COFFEE",
+      "SOCIAL DISTANCING SINCE 1994",
+      "GRAY BUT RICH"
+    ],
+    "WEST VIRGINIA": [
+      "STILL MINING SOMETHING",
+      "HILLS AND HARD TIMES",
+      "PLEASE DO NOT JUDGE",
+      "LEFT BEHIND",
+      "COUNTRY AND COAL"
+    ],
+    "WISCONSIN": [
+      "CHEESE BEFORE SENSE",
+      "DRINK ABOUT IT",
+      "BEER IS A FOOD",
+      "DAIRY AND DENIAL",
+      "STILL BUZZED"
+    ],
+    "WYOMING": [
+      "STILL HERE SOMEHOW",
+      "MORE WIND THAN PEOPLE",
+      "WHERE IS EVERYONE",
+      "WE HAVE TWO CITIES",
+      "WIDE OPEN WHY"
+    ],
+    "DISTRICT OF COLUMBIA": [
+      "NOT A STATE EITHER",
+      "POWER AND PARKING TICKETS",
+      "POLITICS EVERYWHERE",
+      "NO REPRESENTATION"
+    ],
+    "PUERTO RICO": [
+      "NOT A STATE STILL LOUD",
+      "CULTURE AND COMPLAINTS",
+      "BEAUTIFUL BUT BROKE",
+      "STILL WAITING"
+    ]
+}

@@ -40,12 +40,12 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
   }, [character, delay])
 
   return (
-    <div className="relative w-[54px] h-[72px] perspective-[400px]">
+    <div className="relative w-[62px] h-[82px] perspective-[400px]">
       <div
         className={`
           w-full h-full flex items-center justify-center
           bg-white border-2 border-slate-300 rounded-md
-          text-[52px] font-mono font-bold text-slate-800
+          text-[64px] font-mono font-bold text-slate-800
           shadow-sm
           transition-transform duration-300 ease-in-out
           ${isFlipping ? "rotate-x-90" : "rotate-x-0"}

@@ -69,7 +69,7 @@ export function WordInput({
   }
 
   return (
-    <div className="w-full max-w-md flex items-center gap-2">
+    <div className="w-full max-w-lg flex items-center gap-2 mt-12">
       <div className="relative flex-1">
         <input
           ref={inputRef}

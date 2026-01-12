@@ -7,19 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Play, Eye, EyeOff, CircleStop } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
 
-// All 50 U.S. states
-const US_STATES = [
-  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
-  "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
-  "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
-  "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
-  "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-  "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
-  "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
-  "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
-  "West Virginia", "Wisconsin", "Wyoming",
-]
-
 const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-amber-50", textColor: "text-amber-700" },
   { backgroundColor: "bg-sky-100", textColor: "text-sky-700" },
@@ -35,11 +22,6 @@ const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-yellow-50", textColor: "text-yellow-700" },
 ]
 
-// Get random U.S. state
-function getRandomState(): string {
-  return US_STATES[Math.floor(Math.random() * US_STATES.length)]
-}
-
 function getRandomColorCombination() {
   return COLOR_COMBINATIONS[Math.floor(Math.random() * COLOR_COMBINATIONS.length)]
 }
@@ -54,11 +36,13 @@ function formatTime(seconds: number): string {
 type GameState = 'idle' | 'playing' | 'ended'
 
 export default function Home() {
-  // License plate state
+  // License plate state - start empty until data loads
   const [letters, setLetters] = useState("ABC")
   const [numbers, setNumbers] = useState("123")
-  const [state, setState] = useState("California")
+  const [state, setState] = useState("")
+  const [motto, setMotto] = useState("")
   const [colors, setColors] = useState({ backgroundColor: "bg-amber-50", textColor: "text-blue-600" })
+  const [initialDataLoaded, setInitialDataLoaded] = useState(false)
 
   // Game state
   const [gameState, setGameState] = useState<GameState>('idle')
@@ -68,8 +52,11 @@ export default function Home() {
   const [currentGuess, setCurrentGuess] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const [errorKey, setErrorKey] = useState(0)
+  const [successMessage, setSuccessMessage] = useState("")
+  const [successKey, setSuccessKey] = useState(0)
   const [showAllWords, setShowAllWords] = useState(false)
   const [dictionary, setDictionary] = useState<string[]>([])
+  const [stateMottos, setStateMottos] = useState<Record<string, string[]>>({})
   const [isLoading, setIsLoading] = useState(false)
   
   // Word input state
@@ -79,18 +66,39 @@ export default function Home() {
   
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Load dictionary on mount
+  // Load dictionary and state mottos on mount
   useEffect(() => {
-    async function loadDictionary() {
+    async function loadData() {
       try {
-        const response = await fetch('/api/dictionary')
-        const data = await response.json()
-        setDictionary(data.words || [])
+        const [dictResponse, mottosResponse] = await Promise.all([
+          fetch('/api/dictionary'),
+          fetch('/api/mottos')
+        ])
+        const dictData = await dictResponse.json()
+        const mottosData = await mottosResponse.json()
+        const mottos = mottosData.mottos || {}
+        
+        setDictionary(dictData.words || [])
+        setStateMottos(mottos)
+        
+        // Set random initial state, motto, and colors
+        const states = Object.keys(mottos)
+        if (states.length > 0) {
+          const randomState = states[Math.floor(Math.random() * states.length)]
+          const stateMottoList = mottos[randomState] || ["LICENSE TO SPELL"]
+          const randomMotto = stateMottoList[Math.floor(Math.random() * stateMottoList.length)]
+          setState(randomState)
+          setMotto(randomMotto)
+          setColors(getRandomColorCombination())
+          setInitialDataLoaded(true)
+        }
       } catch (error) {
-        console.error('Failed to load dictionary:', error)
+        console.error('Failed to load data:', error)
+        // Still mark as loaded to show fallback
+        setInitialDataLoaded(true)
       }
     }
-    loadDictionary()
+    loadData()
   }, [])
 
   // Timer effect
@@ -147,6 +155,16 @@ export default function Home() {
     }
   }, [errorMessage])
 
+  // Auto-clear success message after fade animation (2 seconds)
+  useEffect(() => {
+    if (successMessage) {
+      const timeout = setTimeout(() => {
+        setSuccessMessage("")
+      }, 2000)
+      return () => clearTimeout(timeout)
+    }
+  }, [errorMessage])
+
   // Generate a valid plate with at least 100 words
   const generatePlate = useCallback(async () => {
     if (dictionary.length === 0) {
@@ -168,9 +186,18 @@ export default function Home() {
     const { generateValidPlate } = require('@/lib/game-logic')
     const result = generateValidPlate(words, 100)
     
+    // Get random state and motto
+    const states = Object.keys(stateMottos)
+    const randomState = states.length > 0 
+      ? states[Math.floor(Math.random() * states.length)]
+      : "CALIFORNIA"
+    const mottos = stateMottos[randomState] || ["LICENSE TO SPELL"]
+    const randomMotto = mottos[Math.floor(Math.random() * mottos.length)]
+    
     setLetters(result.letters)
     setNumbers(result.wordCount.toString().padStart(3, '0'))
-    setState(getRandomState())
+    setState(randomState)
+    setMotto(randomMotto)
     setColors(getRandomColorCombination())
     setValidWords(result.validWords)
     setCorrectGuesses([])
@@ -207,6 +234,7 @@ export default function Home() {
     if (correctGuesses.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Already guessed!")
       setErrorKey(k => k + 1)
+      setSuccessMessage("")
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -216,6 +244,7 @@ export default function Home() {
     if (!isValidWord(letters, guess)) {
       setErrorMessage("Invalid word!")
       setErrorKey(k => k + 1)
+      setSuccessMessage("")
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -225,6 +254,7 @@ export default function Home() {
     if (!validWords.some(w => w.toLowerCase() === guess)) {
       setErrorMessage("Invalid word!")
       setErrorKey(k => k + 1)
+      setSuccessMessage("")
       setIsShaking(true)
       setShouldSelect(true)
       return
@@ -234,6 +264,8 @@ export default function Home() {
     setCorrectGuesses(prev => [...prev, guess])
     setCurrentGuess("")
     setErrorMessage("")
+    setSuccessMessage("Success!")
+    setSuccessKey(k => k + 1)
     setShouldClearAndFocus(true)
   }, [currentGuess, correctGuesses, gameState, letters, validWords])
 
@@ -245,18 +277,23 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 p-4 md:p-8">
       <div className="w-full max-w-2xl flex flex-col items-center gap-6">
         {/* Header */}
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-800 tracking-tight">
-          License To Spell
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+          LICENSE TO SPELL
         </h1>
 
         {/* License Plate */}
-        <LicensePlate
-          letters={letters}
-          numbers={numbers}
-          state={state}
-          backgroundColor={colors.backgroundColor}
-          textColor={colors.textColor}
-        />
+        {initialDataLoaded ? (
+          <LicensePlate
+            letters={letters}
+            numbers={numbers}
+            state={state}
+            motto={motto}
+            backgroundColor={colors.backgroundColor}
+            textColor={colors.textColor}
+          />
+        ) : (
+          <div className="w-[512px] aspect-[2/1] bg-slate-200 rounded-xl animate-pulse" />
+        )}
 
         {/* Word Input */}
         <WordInput
@@ -272,8 +309,8 @@ export default function Home() {
           disabled={gameState !== 'playing'}
         />
 
-        {/* Error Message - positioned absolutely to prevent CLS */}
-        <div className="h-6 relative w-full max-w-md">
+        {/* Message Area - positioned absolutely to prevent CLS */}
+        <div className="h-6 relative w-full max-w-lg">
           {errorMessage && (
             <div 
               key={errorKey}
@@ -283,10 +320,19 @@ export default function Home() {
               {errorMessage}
             </div>
           )}
+          {successMessage && (
+            <div 
+              key={successKey}
+              data-testid="success-message" 
+              className="absolute inset-0 flex items-center justify-center text-emerald-600 font-medium animate-fade-out"
+            >
+              {successMessage}
+            </div>
+          )}
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-4 gap-2 w-full max-w-md text-center">
+        <div className="grid grid-cols-4 gap-2 w-full max-w-lg text-center">
           {/* Game Control Box */}
           {gameState === 'idle' && (
             <button
@@ -366,7 +412,7 @@ export default function Home() {
         </div>
 
         {/* Words Section */}
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-lg">
           {/* Header with toggle */}
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-semibold text-slate-700">
@@ -403,10 +449,10 @@ export default function Home() {
             <div 
               className={`p-4 min-h-[100px] max-h-[300px] overflow-y-auto transition-all duration-300 ${
                 showAllWords ? 'hidden' : 'block'
-              }`}
+              } ${correctGuesses.length === 0 ? 'flex items-center justify-center' : ''}`}
             >
               {correctGuesses.length === 0 ? (
-                <p className="text-slate-400 text-center italic">No words guessed yet</p>
+                <p className="text-slate-400 text-center italic">No correct guesses yet!</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
                   {correctGuesses.map((word, index) => (

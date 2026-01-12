@@ -4,9 +4,9 @@ test.describe('Game Initialization', () => {
   test('page loads with license plate displayed', async ({ page }) => {
     await page.goto('/')
     
-    // License plate should be visible (check for the text on the plate itself)
-    const licensePlate = page.getByText('LICENSE TO SPELL', { exact: true })
-    await expect(licensePlate).toBeVisible()
+    // License plate should be visible (check for the plate letters)
+    const plateLetters = page.getByTestId('plate-letters')
+    await expect(plateLetters).toBeVisible()
   })
 
   test('"Randomize Plate" or "Start Game" button is visible', async ({ page }) => {
