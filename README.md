@@ -16,9 +16,18 @@ There are 123 possible words to create.
 - ✗ BEMOAN (A must come before M)
 - ✗ EMBALM (B must come first)
 
+## Scoring
+
+Each valid word scores points equal to its length. A 5-letter word = 5 points, an 8-letter word = 8 points, etc.
+
 ## Tech Stack
 
 - TypeScript
 - Next.js (app router, API routes, etc.)
 - Tailwind CSS
 - Shadcn UI
+- Vitest / Playwright
+
+---
+
+![License To Spell](./public/screenshot.png)
