@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react"
 import { LicensePlate } from "@/components/license-plate"
 import { WordInput } from "@/components/word-input"
 import { Button } from "@/components/ui/button"
-import { Shuffle, Play, Eye, EyeOff } from "lucide-react"
+import { Shuffle, Play, Eye, EyeOff, CircleStop } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
 
 // All 50 U.S. states
@@ -250,7 +250,7 @@ export default function Home() {
             <Button 
               onClick={generatePlate} 
               variant="outline" 
-              className="gap-2 bg-white hover:bg-slate-50 text-lg px-6 py-3 h-auto"
+              className="gap-3 bg-white hover:bg-slate-50 w-48 h-14 text-lg"
               disabled={isLoading}
             >
               <Shuffle className="w-5 h-5" />
@@ -262,14 +262,15 @@ export default function Home() {
             <Button 
               onClick={stopRound} 
               variant="outline" 
-              className={`font-mono text-3xl font-bold px-8 py-4 h-auto transition-colors ${
+              className={`gap-3 w-48 h-14 transition-colors ${
                 timeRemaining <= 60 
                   ? 'text-red-600 border-red-300 hover:bg-red-50' 
                   : 'text-slate-700 border-slate-300 hover:bg-slate-50'
               }`}
               data-testid="timer"
             >
-              {formatTime(timeRemaining)}
+              <CircleStop className="w-5 h-5 text-red-600" />
+              <span className="font-mono text-2xl font-bold">{formatTime(timeRemaining)}</span>
             </Button>
           )}
           
@@ -284,7 +285,7 @@ export default function Home() {
               <Button 
                 onClick={startNewRound} 
                 variant="outline" 
-                className="gap-2 bg-white hover:bg-emerald-50 text-emerald-600 border-emerald-200 text-lg px-6 py-3 h-auto"
+                className="gap-3 bg-white hover:bg-emerald-50 text-emerald-600 border-emerald-200 w-48 h-14 text-lg"
               >
                 <Play className="w-5 h-5" />
                 New Round
