@@ -286,7 +286,7 @@ export default function Home() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-4 gap-3 w-full max-w-xl text-center">
+        <div className="grid grid-cols-4 gap-2 w-full max-w-md text-center">
           {/* Game Control Box */}
           {gameState === 'idle' && (
             <button

@@ -43,19 +43,19 @@ export function LicensePlate({
 
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* License Plate */}
-      <div className={`relative ${backgroundColor} border-4 border-slate-700 rounded-lg p-4 shadow-xl`}>
+      {/* License Plate - 2:1 aspect ratio like real US plates */}
+      <div className={`relative w-[448px] aspect-[2/1] ${backgroundColor} border-[5px] border-slate-700 rounded-xl shadow-xl flex flex-col items-center justify-center`}>
         {/* Bolt holes */}
-        <div className="absolute top-2 left-3 w-3 h-3 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute top-2 right-3 w-3 h-3 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute bottom-2 left-3 w-3 h-3 rounded-full bg-slate-400 border border-slate-500" />
-        <div className="absolute bottom-2 right-3 w-3 h-3 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute top-2 left-3 w-3.5 h-3.5 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute top-2 right-3 w-3.5 h-3.5 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute bottom-2 left-3 w-3.5 h-3.5 rounded-full bg-slate-400 border border-slate-500" />
+        <div className="absolute bottom-2 right-3 w-3.5 h-3.5 rounded-full bg-slate-400 border border-slate-500" />
 
         {/* State name with fade animation */}
-        <div className="text-center mb-2 h-6 overflow-hidden">
+        <div className="text-center h-7 overflow-hidden mb-4">
           <p
             className={`
-              text-sm font-bold tracking-widest ${textColor} uppercase
+              text-xl font-bold tracking-widest ${textColor} uppercase
               transition-all duration-200 ease-in-out
               ${isStateAnimating ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}
             `}
@@ -65,21 +65,21 @@ export function LicensePlate({
         </div>
 
         {/* Plate characters */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-center gap-1">
           {/* Letters */}
-          <div data-testid="plate-letters" className="flex gap-1">
+          <div data-testid="plate-letters" className="flex gap-0.5">
             {letterChars.map((char, index) => (
               <AnimatedCharacter key={`letter-${index}`} character={char} delay={index * 50} />
             ))}
           </div>
 
           {/* Separator */}
-          <div className="w-4 h-14 flex items-center justify-center">
-            <span className="text-3xl font-bold text-slate-600">-</span>
+          <div className="w-5 h-[72px] flex items-center justify-center">
+            <span className="text-5xl font-bold text-slate-600">-</span>
           </div>
 
           {/* Numbers */}
-          <div data-testid="plate-number" className="flex gap-1">
+          <div data-testid="plate-number" className="flex gap-0.5">
             {numberChars.map((char, index) => (
               <AnimatedCharacter key={`number-${index}`} character={char} delay={(index + 3) * 50} />
             ))}
@@ -87,7 +87,7 @@ export function LicensePlate({
         </div>
 
         {/* Decorative bottom text */}
-        <p className="text-center mt-2 text-xs text-slate-500 tracking-wider">LICENSE TO SPELL</p>
+        <p className="text-center text-base text-slate-500 tracking-wider mt-4">LICENSE TO SPELL</p>
       </div>
     </div>
   )
