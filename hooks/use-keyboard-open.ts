@@ -36,28 +36,27 @@ This approach is the most reliable method currently available on the web, but it
 should be treated as an inference rather than a guaranteed signal.
 */
 export function useKeyboardOpen(threshold = 150) {
-    const [open, setOpen] = React.useState(false)
-  
-    React.useEffect(() => {
-      if (!window.visualViewport) return
-  
-      const viewport = window.visualViewport
-      const initialHeight = viewport.height
-  
-      const handler = () => {
-        const delta = initialHeight - viewport.height
-        setOpen(delta > threshold)
-      }
-  
-      viewport.addEventListener("resize", handler)
-      viewport.addEventListener("scroll", handler) // iOS fires scroll instead of resize
-  
-      return () => {
-        viewport.removeEventListener("resize", handler)
-        viewport.removeEventListener("scroll", handler)
-      }
-    }, [])
-  
-    return open
+  const [open, setOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!window.visualViewport) return
+
+    const viewport = window.visualViewport
+    const initialHeight = viewport.height
+
+    const handler = () => {
+      const delta = initialHeight - viewport.height
+      setOpen(delta > threshold)
+    }
+
+    viewport.addEventListener("resize", handler)
+    viewport.addEventListener("scroll", handler) // iOS fires scroll instead of resize
+
+    return () => {
+      viewport.removeEventListener("resize", handler)
+      viewport.removeEventListener("scroll", handler)
+    }
+  }, [])
+
+  return open
 }
-  
