@@ -3,6 +3,36 @@
 import { useEffect, useRef, useState } from "react"
 import { AnimatedCharacter } from "./animated-character"
 
+// TODO - Better Bolts
+// <div className="absolute"><Bolt className="top-[4px] left-[4px] md:h-6 md:w-6" rotation={12} /></div>
+// function Bolt({ className, rotation = 0 }: { className?: string; rotation?: number }) {
+//   return (
+//     <div
+//       className={cn(
+//         "absolute rounded-full",
+//         // Default fixed size
+//         "w-4 h-4",
+//         // Metallic gradient effect
+//         "bg-gradient-to-br from-zinc-300 via-zinc-400 to-zinc-600",
+//         // Inner shadow for depth
+//         "shadow-[inset_0_1px_2px_rgba(255,255,255,0.5),inset_0_-1px_2px_rgba(0,0,0,0.3)]",
+//         // Border for definition
+//         "border border-zinc-500",
+//         className,
+//       )}
+//     >
+//       {/* Bolt cross/slot - rotation applied here */}
+//       <div
+//         className="absolute inset-0 flex items-center justify-center"
+//         style={{ transform: `rotate(${rotation}deg)` }}
+//       >
+//         <div className="absolute bg-zinc-600 w-1/2 h-[8%] rounded-full" />
+//         <div className="absolute bg-zinc-600 h-1/2 w-[8%] rounded-full" />
+//       </div>
+//     </div>
+//   )
+// }
+
 interface LicensePlateProps {
   letters: string
   numbers: string
