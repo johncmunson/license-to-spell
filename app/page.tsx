@@ -328,7 +328,7 @@ export default function Home() {
           <main className="flex flex-col items-center">
             <div className="w-full max-w-2xl flex flex-col items-center gap-6 sm:gap-8">
               {/* Header */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <h1
                   className="font-bold text-slate-800 text-center"
                   style={{ fontSize: "clamp(1.25rem, 5vw, 2.25rem)" }}
@@ -337,7 +337,7 @@ export default function Home() {
                 </h1>
                 <button
                   onClick={() => setShowRulesDialog(true)}
-                  className="text-slate-500 hover:text-slate-700 transition-colors cursor-pointer"
+                  className="text-slate-700 hover:text-black transition-colors cursor-pointer"
                   aria-label="Game rules and scoring"
                 >
                   <Info
