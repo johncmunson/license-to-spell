@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react"
 import { LicensePlate } from "@/components/license-plate"
 import { WordInput } from "@/components/word-input"
 import { Button } from "@/components/ui/button"
+import { Confetti } from "@/components/confetti"
 import { Play, Eye, EyeOff, CircleStop, Info } from "lucide-react"
 import { calculateScore, calculateStats, isValidWord } from "@/lib/game-logic"
 import {
@@ -13,6 +14,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer"
 import { cn } from "@/lib/utils"
+import type confetti from "canvas-confetti"
 
 const COLOR_COMBINATIONS = [
   { backgroundColor: "bg-amber-50", textColor: "text-amber-700" },
@@ -75,6 +77,8 @@ export default function Home() {
   const [showRulesDialog, setShowRulesDialog] = useState(false)
   
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
+  const confettiFireRef = useRef<((opts?: confetti.Options) => void) | null>(null)
 
   // Load dictionary and state mottos on mount
   useEffect(() => {
@@ -278,6 +282,27 @@ export default function Home() {
     setSuccessMessage("Success!")
     setSuccessKey(k => k + 1)
     setShouldClearAndFocus(true)
+    
+    // Fire confetti from the submit button
+    if (confettiFireRef.current) {
+      let origin = { x: 0.5, y: 0.5 } // Default to center
+      
+      if (submitButtonRef.current) {
+        const rect = submitButtonRef.current.getBoundingClientRect()
+        origin = {
+          x: (rect.left + rect.width / 2) / window.innerWidth,
+          y: (rect.top + rect.height / 2) / window.innerHeight,
+        }
+      } else {
+        console.log('Submit button ref is null!')
+      }
+      
+      confettiFireRef.current({
+        particleCount: 80,
+        spread: 70,
+        origin,
+      })
+    }
   }, [currentGuess, correctGuesses, gameState, letters, validWords])
 
   // Calculate current score and stats
@@ -285,6 +310,12 @@ export default function Home() {
   const stats = calculateStats(validWords)
 
   return (
+    <Confetti>
+      {({ fire }) => {
+        // Store fire function in ref (safe because fire is stable)
+        confettiFireRef.current = fire
+        
+        return (
     <main className="flex flex-col items-center">
       <div className="w-full max-w-2xl flex flex-col items-center gap-6 sm:gap-8">
         {/* Header */}
@@ -361,6 +392,7 @@ export default function Home() {
 
         {/* Word Input */}
         <WordInput
+          ref={submitButtonRef}
           value={currentGuess}
           onChange={(value) => {
             setCurrentGuess(value)
@@ -593,5 +625,8 @@ export default function Home() {
         </div>
       </div>
     </main>
+        )
+      }}
+    </Confetti>
   )
 }

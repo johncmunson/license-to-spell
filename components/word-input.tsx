@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, forwardRef } from "react"
 import { Button } from "@/components/ui/button"
 import { SendHorizontal } from "lucide-react"
 
@@ -17,7 +17,7 @@ interface WordInputProps {
   disabled?: boolean
 }
 
-export function WordInput({
+export const WordInput = forwardRef<HTMLButtonElement, WordInputProps>(function WordInput({
   value,
   onChange,
   onSubmit,
@@ -26,7 +26,7 @@ export function WordInput({
   shouldClearAndFocus = false,
   maxLength = 31,
   disabled = false,
-}: WordInputProps) {
+}, ref) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Handle text selection on invalid guess
@@ -104,6 +104,7 @@ export function WordInput({
       </div>
 
       <Button 
+        ref={ref}
         onClick={onSubmit} 
         size="icon"
         disabled={disabled}
@@ -117,4 +118,4 @@ export function WordInput({
       </Button>
     </div>
   )
-}
+})
