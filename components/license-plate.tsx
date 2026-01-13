@@ -46,7 +46,9 @@ export function LicensePlate({
   return (
     <div className="flex flex-col items-center gap-4 w-full px-2 sm:px-0">
       {/* License Plate - 2:1 aspect ratio like real US plates */}
-      <div className={`relative w-full max-w-[512px] aspect-[2/1] ${backgroundColor} border-[3px] sm:border-[5px] border-slate-700 rounded-lg sm:rounded-xl shadow-xl flex flex-col items-center justify-center px-2 sm:px-0`}>
+      <div
+        className={`relative w-full max-w-[512px] aspect-[2/1] ${backgroundColor} border-[3px] sm:border-[5px] border-slate-700 rounded-lg sm:rounded-xl shadow-xl flex flex-col items-center justify-center px-2 sm:px-0`}
+      >
         {/* Bolt holes */}
         <div className="absolute top-1.5 sm:top-2.5 left-2 sm:left-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
         <div className="absolute top-1.5 sm:top-2.5 right-2 sm:right-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
@@ -54,9 +56,12 @@ export function LicensePlate({
         <div className="absolute bottom-1.5 sm:bottom-2.5 right-2 sm:right-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
 
         {/* State name with fade animation */}
-        <div 
+        <div
           className="text-center overflow-hidden"
-          style={{ height: 'clamp(1.5rem, 5vw, 2.25rem)', marginBottom: 'clamp(0.5rem, 2vw, 1rem)' }}
+          style={{
+            height: "clamp(1.5rem, 5vw, 2.25rem)",
+            marginBottom: "clamp(0.5rem, 2vw, 1rem)",
+          }}
         >
           <p
             className={`
@@ -64,7 +69,7 @@ export function LicensePlate({
               transition-all duration-200 ease-in-out
               ${isStateAnimating ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"}
             `}
-            style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)' }}
+            style={{ fontSize: "clamp(1rem, 4vw, 1.5rem)" }}
           >
             {displayState}
           </p>
@@ -75,34 +80,52 @@ export function LicensePlate({
           {/* Letters */}
           <div data-testid="plate-letters" className="flex gap-0.5 sm:gap-1">
             {letterChars.map((char, index) => (
-              <AnimatedCharacter key={`letter-${index}`} character={char} delay={index * 50} />
+              <AnimatedCharacter
+                key={`letter-${index}`}
+                character={char}
+                delay={index * 50}
+              />
             ))}
           </div>
 
           {/* Separator */}
-          <div 
+          <div
             className="flex items-center justify-center"
-            style={{ width: 'clamp(1rem, 3vw, 1.5rem)', height: 'clamp(50px, 16vw, 82px)' }}
+            style={{
+              width: "clamp(1rem, 3vw, 1.5rem)",
+              height: "clamp(50px, 16vw, 82px)",
+            }}
           >
-            <span 
+            <span
               className="font-bold text-slate-600"
-              style={{ fontSize: 'clamp(2.25rem, 8vw, 3.75rem)' }}
-            >-</span>
+              style={{ fontSize: "clamp(2.25rem, 8vw, 3.75rem)" }}
+            >
+              -
+            </span>
           </div>
 
           {/* Numbers */}
           <div data-testid="plate-number" className="flex gap-0.5 sm:gap-1">
             {numberChars.map((char, index) => (
-              <AnimatedCharacter key={`number-${index}`} character={char} delay={(index + 3) * 50} />
+              <AnimatedCharacter
+                key={`number-${index}`}
+                character={char}
+                delay={(index + 3) * 50}
+              />
             ))}
           </div>
         </div>
 
         {/* State motto */}
-        <p 
+        <p
           className="text-center italic text-slate-500 tracking-wide px-2"
-          style={{ fontSize: 'clamp(0.75rem, 2.5vw, 1.125rem)', marginTop: 'clamp(0.75rem, 3vw, 1.5rem)' }}
-        >"{motto}"</p>
+          style={{
+            fontSize: "clamp(0.75rem, 2.5vw, 1.125rem)",
+            marginTop: "clamp(0.75rem, 3vw, 1.5rem)",
+          }}
+        >
+          "{motto}"
+        </p>
       </div>
     </div>
   )

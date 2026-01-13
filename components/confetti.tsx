@@ -1,14 +1,14 @@
-import { useEffect, useRef, useCallback, useState, ReactNode } from "react";
-import confetti from "canvas-confetti";
+import { useEffect, useRef, useCallback, useState, ReactNode } from "react"
+import confetti from "canvas-confetti"
 
-type ConfettiApi = (opts?: confetti.Options) => void;
+type ConfettiApi = (opts?: confetti.Options) => void
 
 type ConfettiProps = {
-  children: (api: { fire: ConfettiApi; reset: () => void }) => ReactNode;
-  globalOptions?: confetti.CreateTypes;
-  className?: string;
-  style?: React.CSSProperties;
-};
+  children: (api: { fire: ConfettiApi; reset: () => void }) => ReactNode
+  globalOptions?: confetti.CreateTypes
+  className?: string
+  style?: React.CSSProperties
+}
 
 export function Confetti({
   children,
@@ -16,9 +16,9 @@ export function Confetti({
   className,
   style,
 }: ConfettiProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const instanceRef = useRef<ReturnType<typeof confetti.create> | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const instanceRef = useRef<ReturnType<typeof confetti.create> | null>(null)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 
   // Update canvas dimensions on mount and resize
   useEffect(() => {
@@ -26,37 +26,37 @@ export function Confetti({
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
-      });
-    };
+      })
+    }
 
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
+    updateDimensions()
+    window.addEventListener("resize", updateDimensions)
+    return () => window.removeEventListener("resize", updateDimensions)
+  }, [])
 
   // Create confetti instance after canvas is properly sized
   useEffect(() => {
-    if (!canvasRef.current || dimensions.width === 0) return;
+    if (!canvasRef.current || dimensions.width === 0) return
 
     instanceRef.current = confetti.create(canvasRef.current, {
       resize: true,
       useWorker: true,
       ...globalOptions,
-    });
+    })
 
     return () => {
-      instanceRef.current?.reset();
-      instanceRef.current = null;
-    };
-  }, [dimensions.width, dimensions.height, globalOptions]);
+      instanceRef.current?.reset()
+      instanceRef.current = null
+    }
+  }, [dimensions.width, dimensions.height, globalOptions])
 
   const fire = useCallback<ConfettiApi>((opts = {}) => {
-    instanceRef.current?.(opts);
-  }, []);
+    instanceRef.current?.(opts)
+  }, [])
 
   const reset = useCallback(() => {
-    instanceRef.current?.reset();
-  }, []);
+    instanceRef.current?.reset()
+  }, [])
 
   return (
     <>
@@ -77,11 +77,12 @@ export function Confetti({
       />
       {children({ fire, reset })}
     </>
-  );
+  )
 }
 
 // Example usage
-{/* <Confetti>
+{
+  /* <Confetti>
   {({ fire }) => (
     <button
       onClick={() =>
@@ -94,4 +95,5 @@ export function Confetti({
       Celebrate
     </button>
   )}
-</Confetti> */}
+</Confetti> */
+}

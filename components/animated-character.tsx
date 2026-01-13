@@ -7,7 +7,10 @@ interface AnimatedCharacterProps {
   delay?: number
 }
 
-export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterProps) {
+export function AnimatedCharacter({
+  character,
+  delay = 0,
+}: AnimatedCharacterProps) {
   const [displayChar, setDisplayChar] = useState(character)
   const [isFlipping, setIsFlipping] = useState(false)
   const prevCharRef = useRef(character)
@@ -40,11 +43,11 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
   }, [character, delay])
 
   return (
-    <div 
+    <div
       className="relative perspective-[400px]"
       style={{
-        width: 'clamp(38px, 12vw, 62px)',
-        height: 'clamp(50px, 16vw, 82px)',
+        width: "clamp(38px, 12vw, 62px)",
+        height: "clamp(50px, 16vw, 82px)",
       }}
     >
       <div
@@ -59,7 +62,7 @@ export function AnimatedCharacter({ character, delay = 0 }: AnimatedCharacterPro
         style={{
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
-          fontSize: 'clamp(38px, 12vw, 64px)',
+          fontSize: "clamp(38px, 12vw, 64px)",
         }}
       >
         {displayChar}
