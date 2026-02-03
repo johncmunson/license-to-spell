@@ -34,6 +34,18 @@ describe("isValidWord", () => {
     it("accepts minimum valid word (exactly contains plate letters)", () => {
       expect(isValidWord("CAT", "CAT")).toBe(true)
     })
+
+    it("accepts a word where plate letters appear as subsequence (AUT -> TABULATE)", () => {
+      expect(isValidWord("AUT", "TABULATE")).toBe(true)
+    })
+
+    it("accepts a word where all plate letters appear late in the word", () => {
+      expect(isValidWord("ICE", "PRACTICE")).toBe(true)
+    })
+
+    it("accepts a word with plate letters at the very end", () => {
+      expect(isValidWord("END", "APPEND")).toBe(true)
+    })
   })
 
   describe("invalid words", () => {
@@ -42,9 +54,9 @@ describe("isValidWord", () => {
       expect(isValidWord("BAM", "BEMOAN")).toBe(false)
     })
 
-    it("rejects a word not starting with the first plate letter (BAM -> EMBALM)", () => {
-      // EMBALM starts with E, not B
-      expect(isValidWord("BAM", "EMBALM")).toBe(false)
+    it("accepts a word where plate letters appear as subsequence (BAM -> EMBALM)", () => {
+      // EMBALM contains B, A, M in order (EM-B-A-L-M)
+      expect(isValidWord("BAM", "EMBALM")).toBe(true)
     })
 
     it("rejects a word that is too short to contain all plate letters", () => {
@@ -59,8 +71,14 @@ describe("isValidWord", () => {
       expect(isValidWord("BAM", "")).toBe(false)
     })
 
-    it("rejects a word that has wrong first letter", () => {
-      expect(isValidWord("CAT", "SCATTER")).toBe(false)
+    it("accepts a word where plate letters appear later (CAT -> SCATTER)", () => {
+      // SCATTER contains C, A, T in order (S-C-A-T-TER)
+      expect(isValidWord("CAT", "SCATTER")).toBe(true)
+    })
+
+    it("rejects a word where plate letters appear out of order", () => {
+      // MUTUAL has U, T, A but U comes before T (wrong order for TAU)
+      expect(isValidWord("TAU", "MUTUAL")).toBe(false)
     })
   })
 })
@@ -90,7 +108,7 @@ describe("getValidWords", () => {
   it("excludes invalid words", () => {
     const validWords = getValidWords("BAM", testDictionary)
     expect(validWords).not.toContain("bemoan") // A must come before M
-    expect(validWords).not.toContain("embalm") // Must start with B
+    expect(validWords).toContain("embalm") // Contains B, A, M in order
   })
 
   it("returns empty array for impossible letter combinations", () => {
@@ -108,7 +126,7 @@ describe("getValidWords", () => {
     expect(validWords).toContain("cat")
     expect(validWords).toContain("catapult")
     expect(validWords).toContain("communicate")
-    expect(validWords).not.toContain("scatter") // starts with S
+    expect(validWords).toContain("scatter") // S comes before C, contains C-A-T in order
   })
 })
 

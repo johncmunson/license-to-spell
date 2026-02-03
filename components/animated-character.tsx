@@ -46,8 +46,8 @@ export function AnimatedCharacter({
     <div
       className="relative perspective-[400px]"
       style={{
-        width: "clamp(38px, 12vw, 62px)",
-        height: "clamp(50px, 16vw, 82px)",
+        width: "clamp(34px, 10vw, 54px)",
+        height: "clamp(44px, 13vw, 70px)",
       }}
     >
       <div
@@ -62,7 +62,7 @@ export function AnimatedCharacter({
         style={{
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
-          fontSize: "clamp(38px, 12vw, 64px)",
+          fontSize: "clamp(34px, 10vw, 54px)",
         }}
       >
         {displayChar}

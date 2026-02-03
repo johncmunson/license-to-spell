@@ -218,7 +218,7 @@ export default function Home() {
     const randomMotto = mottos[Math.floor(Math.random() * mottos.length)]
 
     setLetters(result.letters)
-    setNumbers(result.wordCount.toString().padStart(3, "0"))
+    setNumbers(result.wordCount.toString().padStart(4, "0"))
     setState(randomState)
     setMotto(randomMotto)
     setColors(getRandomColorCombination())
@@ -371,12 +371,9 @@ export default function Home() {
                       </h3>
                       <ul className="list-disc space-y-1 ml-6">
                         <li>
-                          Words must <strong>start</strong> with the first
-                          letter of the plate
-                        </li>
-                        <li>
-                          All three plate letters must appear in the word,{" "}
-                          <strong>in order</strong>
+                          All three plate letters must appear in the word{" "}
+                          <strong>in order</strong> (they don&apos;t need to be
+                          consecutive or at the start)
                         </li>
                         <li>
                           The license plate number indicates the{" "}
@@ -405,7 +402,12 @@ export default function Home() {
                       <p>
                         For plate <span className="font-semibold">BAM</span>,
                         valid words include:
-                        <span> BECAME, BEAM, BASEMENT, etc.</span>
+                        <span> BECAME, BEAM, EMBALM, CABMAN, etc.</span>
+                      </p>
+                      <p className="mt-2">
+                        For plate <span className="font-semibold">AUT</span>,
+                        valid words include:
+                        <span> AUTO, AUTHOR, TABULATE, ASTRONAUT, etc.</span>
                       </p>
                     </div>
                   </div>

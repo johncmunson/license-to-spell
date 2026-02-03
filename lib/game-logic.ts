@@ -2,8 +2,8 @@
  * Core game logic for License To Spell
  *
  * Rules:
- * - Words must start with the first letter of the license plate
- * - All letters in the license plate must appear in the word, in order
+ * - The license plate letters must appear in the word in order (subsequence matching)
+ * - Letters can appear anywhere in the word, as long as they maintain sequence
  */
 
 /**
@@ -19,11 +19,6 @@ export function isValidWord(plate: string, word: string): boolean {
 
   // Word must be at least as long as the plate
   if (upperWord.length < upperPlate.length) {
-    return false
-  }
-
-  // Word must start with the first letter of the plate
-  if (upperWord[0] !== upperPlate[0]) {
     return false
   }
 
@@ -95,7 +90,7 @@ function randomLetter(): string {
 export function generateValidPlate(
   dictionary: string[],
   minWords: number = 100,
-  maxWords: number = 999,
+  maxWords: number = 9999,
 ): { letters: string; wordCount: number; validWords: string[] } {
   let letters: string
   let validWords: string[]

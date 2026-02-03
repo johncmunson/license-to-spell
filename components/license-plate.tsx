@@ -71,13 +71,13 @@ export function LicensePlate({
 
   // Ensure letters and numbers are properly formatted
   const letterChars = letters.toUpperCase().padEnd(3, " ").slice(0, 3).split("")
-  const numberChars = numbers.padStart(3, "0").slice(0, 3).split("")
+  const numberChars = numbers.padStart(4, "0").slice(0, 4).split("")
 
   return (
     <div className="flex flex-col items-center gap-4 w-full px-2 sm:px-0">
       {/* License Plate - 2:1 aspect ratio like real US plates */}
       <div
-        className={`relative w-full max-w-[512px] aspect-[2/1] ${backgroundColor} border-[3px] sm:border-[5px] border-slate-700 rounded-lg sm:rounded-xl shadow-xl flex flex-col items-center justify-center px-2 sm:px-0`}
+        className={`relative w-full max-w-[512px] aspect-[2/1] ${backgroundColor} border-[3px] sm:border-[5px] border-slate-700 rounded-lg sm:rounded-xl shadow-xl flex flex-col items-center justify-center px-4 sm:px-8`}
       >
         {/* Bolt holes */}
         <div className="absolute top-1.5 sm:top-2.5 left-2 sm:left-4 w-2.5 sm:w-4 h-2.5 sm:h-4 rounded-full bg-slate-400 border border-slate-500" />
@@ -106,7 +106,7 @@ export function LicensePlate({
         </div>
 
         {/* Plate characters */}
-        <div className="flex items-center justify-center gap-0.5 sm:gap-1.5">
+        <div className="flex items-center justify-center gap-0.5 sm:gap-1.5 px-4 sm:px-8">
           {/* Letters */}
           <div data-testid="plate-letters" className="flex gap-0.5 sm:gap-1">
             {letterChars.map((char, index) => (
@@ -122,13 +122,13 @@ export function LicensePlate({
           <div
             className="flex items-center justify-center"
             style={{
-              width: "clamp(1rem, 3vw, 1.5rem)",
-              height: "clamp(50px, 16vw, 82px)",
+              width: "clamp(0.75rem, 2vw, 1.25rem)",
+              height: "clamp(44px, 13vw, 70px)",
             }}
           >
             <span
               className="font-bold text-slate-600"
-              style={{ fontSize: "clamp(2.25rem, 8vw, 3.75rem)" }}
+              style={{ fontSize: "clamp(2rem, 7vw, 3rem)" }}
             >
               -
             </span>
